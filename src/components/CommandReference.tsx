@@ -1,9 +1,7 @@
 import { useState, useMemo } from 'react';
-import SectionHeading from './SectionHeading';
-import Reveal from './Reveal';
 import { COMMANDS, type CommandCategory } from './rest/commandsData';
 
-function CopyIconButton({ text }: { text: string }) {
+function CopyIconButton({ text, syntax }: { text: string; syntax: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -27,9 +25,9 @@ function CopyIconButton({ text }: { text: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      aria-label={`Copy command: ${text}`}
-      title={copied ? 'Copied!' : 'Copy command'}
-      className="relative shrink-0 rounded-md border border-white/10 bg-white/5 p-1.5 text-dim transition hover:border-emerald/40 hover:bg-white/10 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald/60"
+      aria-label={`Copy command: ${syntax}`}
+      title={copied ? 'Copied' : `Copy ${syntax}`}
+      className="relative inline-flex h-6 w-6 shrink-0 items-center justify-center rounded border border-white/10 bg-white/5 text-dim transition hover:border-emerald/40 hover:bg-white/10 hover:text-ink focus:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald sm:opacity-0 sm:group-hover:opacity-100"
     >
       {copied ? (
         <svg
@@ -60,179 +58,122 @@ function CopyIconButton({ text }: { text: string }) {
         </svg>
       )}
       {copied && (
-        <span className="absolute -top-7 right-0 rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium text-emerald shadow border border-emerald/30 whitespace-nowrap">
-          Copied!
+        <span
+          role="status"
+          className="absolute -top-7 right-0 rounded border border-emerald/30 bg-surface px-1.5 py-0.5 text-[10px] font-medium text-emerald shadow whitespace-nowrap"
+        >
+          Copied
         </span>
       )}
     </button>
   );
 }
 
+const CATEGORIES: Array<{ id: CommandCategory; label: string }> = [
+  { id: 'daily', label: 'Account Management' },
+  { id: 'quota', label: 'Quota & Utilities' },
+  { id: 'auto', label: 'Automation & AI' },
+];
+
 const CATEGORY_TABS: Array<{ id: 'all' | CommandCategory; label: string }> = [
   { id: 'all', label: 'All Commands' },
-  { id: 'daily', label: 'Account Management' },
-  { id: 'auto', label: 'Automation & AI' },
-  { id: 'quota', label: 'Quota & Utilities' },
+  ...CATEGORIES,
 ];
 
 export default function CommandReference() {
   const [activeCategory, setActiveCategory] = useState<'all' | CommandCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredCommands = useMemo(() => {
+  const groupedCategories = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    return COMMANDS.filter((cmd) => {
-      const matchesCat = activeCategory === 'all' || cmd.categories.includes(activeCategory);
-      if (!matchesCat) return false;
-      if (!query) return true;
 
-      const inSyntax = cmd.syntax.toLowerCase().includes(query);
-      const inLabel = cmd.categoryLabel.toLowerCase().includes(query);
-      const inCopy = cmd.copyText.toLowerCase().includes(query);
-      return inSyntax || inLabel || inCopy;
-    });
+    return CATEGORIES.map((cat) => {
+      if (activeCategory !== 'all' && activeCategory !== cat.id) {
+        return { ...cat, commands: [] };
+      }
+
+      const commands = COMMANDS.filter((cmd) => {
+        if (!cmd.categories.includes(cat.id)) return false;
+        if (!query) return true;
+
+        const inSyntax = cmd.syntax.toLowerCase().includes(query);
+        const inLabel = cmd.categoryLabel.toLowerCase().includes(query);
+        const inCopy = cmd.copyText.toLowerCase().includes(query);
+        return inSyntax || inLabel || inCopy;
+      });
+
+      return { ...cat, commands };
+    }).filter((group) => group.commands.length > 0);
   }, [activeCategory, searchQuery]);
 
+  const totalVisibleCount = useMemo(() => {
+    return groupedCategories.reduce((sum, g) => sum + g.commands.length, 0);
+  }, [groupedCategories]);
+
   return (
-    <section id="cli-reference" className="relative py-20 sm:py-24">
-      {/* Ambient background glow */}
-      <div
-        className="pointer-events-none absolute left-0 top-1/3 -z-10 h-72 w-72 rounded-full bg-emerald/10 blur-[100px]"
-        aria-hidden="true"
-      />
-
+    <section id="cli-reference" className="py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Documentation"
-          title="Complete Command Reference"
-          subtitle={
-            <>
-              All commands and switches supported by{' '}
-              <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-cyan">
-                agyr
-              </code>
-              ,{' '}
-              <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-cyan">
-                agy-run
-              </code>
-              , and{' '}
-              <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-cyan">
-                agy-task
-              </code>
-              .
-            </>
-          }
-        />
+        {/* Section Header */}
+        <div className="mb-8 sm:mb-10">
+          <h2 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            Command Reference
+          </h2>
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">
+            Commands and switches supported by{' '}
+            <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+              agyr
+            </code>
+            ,{' '}
+            <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+              agy-run
+            </code>
+            , and{' '}
+            <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+              agy-task
+            </code>
+            .
+          </p>
+        </div>
 
-        {/* Filter & Search Bar */}
-        <Reveal>
-          <div className="mb-10 flex flex-col items-stretch justify-between gap-4 md:flex-row md:items-center">
-            {/* Category tabs */}
-            <div
-              className="flex flex-wrap items-center gap-2"
-              role="tablist"
-              aria-label="Filter command categories"
-            >
-              {CATEGORY_TABS.map((tab) => {
-                const isActive = activeCategory === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => setActiveCategory(tab.id)}
-                    className={`rounded-md px-3.5 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald/60 sm:text-sm ${
-                      isActive
-                        ? 'border border-emerald/50 bg-emerald/15 text-emerald shadow-[0_0_12px_rgba(34,197,94,0.15)]'
-                        : 'border border-white/10 bg-white/5 text-muted hover:border-white/20 hover:bg-white/10 hover:text-ink'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Search Input */}
-            <div className="relative w-full md:max-w-xs">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-dim">
-                <svg
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-              </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Filter commands (e.g. claude, swapui, rotate)..."
-                aria-label="Filter commands"
-                className="w-full rounded-md border border-white/10 bg-terminal py-2 pl-9 pr-8 text-xs text-ink placeholder:text-dim focus:border-cyan/50 focus:outline-none focus:ring-1 focus:ring-cyan/50 sm:text-sm"
-              />
-              {searchQuery && (
+        {/* Filter Tabs & Search Bar */}
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Tabs */}
+          <div
+            className="flex items-center gap-6 overflow-x-auto border-b border-white/10"
+            role="tablist"
+            aria-label="Filter command categories"
+          >
+            {CATEGORY_TABS.map((tab) => {
+              const isActive = activeCategory === tab.id;
+              return (
                 <button
+                  key={tab.id}
                   type="button"
-                  onClick={() => setSearchQuery('')}
-                  aria-label="Clear search query"
-                  className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-dim hover:text-ink"
+                  role="tab"
+                  id={`tab-${tab.id}`}
+                  aria-selected={isActive}
+                  aria-controls="command-reference-list"
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`-mb-px shrink-0 border-b-2 pb-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
+                    isActive
+                      ? 'border-emerald text-ink'
+                      : 'border-transparent text-muted hover:border-white/20 hover:text-ink'
+                  }`}
                 >
-                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
+                  {tab.label}
                 </button>
-              )}
-            </div>
+              );
+            })}
           </div>
-        </Reveal>
 
-        {/* Commands Grid */}
-        {filteredCommands.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {filteredCommands.map((cmd, idx) => (
-              <Reveal key={cmd.id} delay={Math.min(idx * 30, 240)}>
-                <div className="group flex h-full flex-col justify-between rounded-xl border border-white/10 bg-card p-5 backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#121a2c]/80 hover:shadow-lg">
-                  <div>
-                    {/* Header: Syntax + Copy Icon (defect d: copy icon in own corner, never overlapping text) */}
-                    <div className="mb-3 flex items-start justify-between gap-3">
-                      <code className="min-w-0 flex-1 break-all rounded border border-cyan/25 bg-cyan/10 px-2 py-1 font-mono text-xs font-bold leading-relaxed text-cyan sm:text-sm">
-                        {cmd.syntax}
-                      </code>
-                      <CopyIconButton text={cmd.copyText} />
-                    </div>
-
-                    {/* Description */}
-                    <div className="text-xs leading-relaxed text-muted sm:text-sm">
-                      {cmd.description}
-                    </div>
-                  </div>
-
-                  {/* Meta / Category Badge */}
-                  <div className="mt-4 pt-2 border-t border-white/5">
-                    <span className="inline-block rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] font-medium text-dim">
-                      {cmd.categoryLabel}
-                    </span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        ) : (
-          /* Empty state */
-          <Reveal>
-            <div className="rounded-xl border border-white/10 bg-card py-16 px-4 text-center">
+          {/* Search Input */}
+          <div className="relative w-full sm:w-64 md:w-72">
+            <label htmlFor="command-search" className="sr-only">
+              Search commands
+            </label>
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-dim">
               <svg
-                className="mx-auto mb-3 h-8 w-8 text-dim"
+                className="h-4 w-4"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -244,22 +185,102 @@ export default function CommandReference() {
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <p className="text-base font-medium text-ink">No commands match your query.</p>
-              <p className="mt-1 text-xs text-dim sm:text-sm">
-                Try searching for &quot;claude&quot;, &quot;rotate&quot;, or &quot;swapui&quot;.
-              </p>
+            </div>
+            <input
+              id="command-search"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search commands..."
+              className="w-full rounded-md border border-white/10 bg-terminal py-1.5 pl-9 pr-8 text-sm text-ink placeholder:text-dim focus:border-emerald focus:outline-none focus:ring-1 focus:ring-emerald"
+            />
+            {searchQuery && (
               <button
                 type="button"
-                onClick={() => {
-                  setActiveCategory('all');
-                  setSearchQuery('');
-                }}
-                className="mt-4 rounded-md border border-emerald/40 bg-emerald/10 px-3.5 py-1.5 text-xs font-semibold text-emerald hover:bg-emerald/20 transition"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search query"
+                className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-dim hover:text-ink focus-visible:outline-none focus-visible:text-ink"
               >
-                Reset Filters
+                <svg
+                  className="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
               </button>
-            </div>
-          </Reveal>
+            )}
+          </div>
+        </div>
+
+        {/* SR Live region for count */}
+        <div className="sr-only" aria-live="polite">
+          {totalVisibleCount} commands shown
+        </div>
+
+        {/* Command List or Empty State */}
+        {groupedCategories.length > 0 ? (
+          <div id="command-reference-list" className="space-y-10">
+            {groupedCategories.map((group) => (
+              <div key={group.id} className="space-y-3">
+                <h3 className="text-sm font-semibold text-ink">
+                  {group.label}
+                </h3>
+                <dl className="divide-y divide-white/10 border-y border-white/10">
+                  {group.commands.map((cmd) => (
+                    <div
+                      key={cmd.id}
+                      className="group flex flex-col gap-1.5 py-3.5 transition-colors hover:bg-white/[0.02] sm:grid sm:grid-cols-[16rem_1fr] sm:items-baseline sm:gap-6 md:grid-cols-[18rem_1fr]"
+                    >
+                      <dt className="flex items-center justify-between gap-3 sm:justify-start">
+                        <code className="font-mono text-sm font-medium text-ink break-all sm:break-normal">
+                          {cmd.syntax}
+                        </code>
+                        <CopyIconButton text={cmd.copyText} syntax={cmd.syntax} />
+                      </dt>
+                      <dd className="text-sm leading-relaxed text-muted sm:text-base">
+                        {cmd.description}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-md border border-white/10 bg-surface/50 px-4 py-12 text-center">
+            <svg
+              className="mx-auto mb-3 h-8 w-8 text-dim"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <p className="text-base font-medium text-ink">No commands match your query.</p>
+            <p className="mt-1 text-sm text-dim">
+              Try searching for &quot;claude&quot;, &quot;rotate&quot;, or &quot;swapui&quot;.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveCategory('all');
+                setSearchQuery('');
+              }}
+              className="mt-4 rounded-md border border-emerald/40 bg-emerald/10 px-3.5 py-1.5 text-xs font-medium text-emerald transition hover:bg-emerald/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
+            >
+              Reset Filters
+            </button>
+          </div>
         )}
       </div>
     </section>

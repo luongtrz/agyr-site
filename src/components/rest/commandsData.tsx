@@ -16,49 +16,11 @@ export const COMMANDS: CommandItem[] = [
     id: 'cmd-list',
     syntax: 'agyr list',
     copyText: 'agyr list',
-    categories: ['daily', 'quota'],
+    categories: ['daily'],
     categoryLabel: 'Account Management',
     description: (
       <>
         Inspect real-time quota across all accounts in parallel. Colors indicate percentage health: green (&gt;40%), yellow (11–40%), red (≤10%).
-      </>
-    ),
-  },
-  {
-    id: 'cmd-list-claude',
-    syntax: 'agyr list --claude',
-    copyText: 'agyr list --claude',
-    categories: ['daily', 'quota'],
-    categoryLabel: 'Quota & Utilities',
-    description: (
-      <>
-        Includes Claude 5-hour and Claude weekly limit columns (and GPT if supported) alongside Gemini and Argon quotas.
-      </>
-    ),
-  },
-  {
-    id: 'cmd-list-c',
-    syntax: 'agyr list -c',
-    copyText: 'agyr list -c',
-    categories: ['daily', 'quota'],
-    categoryLabel: 'Quota & Utilities',
-    description: (
-      <>
-        Fast cached quota inspection without calling the{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">agy</code>{' '}
-        binary. Instant results from local state.
-      </>
-    ),
-  },
-  {
-    id: 'cmd-list-w',
-    syntax: 'agyr list -w',
-    copyText: 'agyr list -w',
-    categories: ['quota'],
-    categoryLabel: 'Quota & Utilities',
-    description: (
-      <>
-        Wide format: prevents auto-collapsing optional model columns (Argon, Claude) even on narrow terminal windows.
       </>
     ),
   },
@@ -71,8 +33,10 @@ export const COMMANDS: CommandItem[] = [
     description: (
       <>
         Switch the active interactive account to{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">&lt;name&gt;</code>.
-        Swaps tokens atomically with backup safeguards.
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          &lt;name&gt;
+        </code>
+        . Swaps tokens atomically with backup safeguards.
       </>
     ),
   },
@@ -85,9 +49,10 @@ export const COMMANDS: CommandItem[] = [
     description: (
       <>
         Saves the current active interactive login into a named slot in{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink break-keep [word-break:keep-all]">
           ~/.gemini/antigravity-cli/accounts/
-        </code>.
+        </code>
+        .
       </>
     ),
   },
@@ -95,41 +60,19 @@ export const COMMANDS: CommandItem[] = [
     id: 'cmd-swapui',
     syntax: 'agyr swapui <n1> <n2>',
     copyText: 'agyr swapui',
-    categories: ['daily', 'quota'],
+    categories: ['daily'],
     categoryLabel: 'Account Management',
     description: (
       <>
-        Swaps the UI display row order of two accounts in{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">agyr list</code>{' '}
+        Swaps the display row order of two accounts in{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          agyr list
+        </code>{' '}
         without affecting rotation heuristics. Use{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">--reset</code>{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          --reset
+        </code>{' '}
         to revert.
-      </>
-    ),
-  },
-  {
-    id: 'cmd-rotate',
-    syntax: 'agyr rotate [cooldown]',
-    copyText: 'agyr rotate',
-    categories: ['daily', 'auto'],
-    categoryLabel: 'Automation & AI',
-    description: (
-      <>
-        When interactive{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">agy</code>{' '}
-        runs out of quota, marks current account in cooldown and switches to next ready account.
-      </>
-    ),
-  },
-  {
-    id: 'cmd-test',
-    syntax: 'agyr test [name...]',
-    copyText: 'agyr test',
-    categories: ['quota'],
-    categoryLabel: 'Quota & Utilities',
-    description: (
-      <>
-        Sends a quick &quot;Hi&quot; probe to accounts to initialize their rolling 5-hour quota windows concurrently.
       </>
     ),
   },
@@ -141,8 +84,10 @@ export const COMMANDS: CommandItem[] = [
     categoryLabel: 'Account Management',
     description: (
       <>
-        Drops local active login to sign in to another account. Refuses if unsaved unless{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">-f</code>{' '}
+        Drops the local active login to sign in to another account. Refuses if unsaved unless{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          -f
+        </code>{' '}
         is passed.
       </>
     ),
@@ -156,7 +101,78 @@ export const COMMANDS: CommandItem[] = [
     description: (
       <>
         Permanently deletes a saved slot token and associated quota/cooldown state. (Alias:{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">agyr rm</code>).
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          agyr rm
+        </code>
+        ).
+      </>
+    ),
+  },
+  {
+    id: 'cmd-list-claude',
+    syntax: 'agyr list --claude',
+    copyText: 'agyr list --claude',
+    categories: ['quota'],
+    categoryLabel: 'Quota & Utilities',
+    description: (
+      <>
+        Includes Claude 5-hour and Claude weekly limit columns (and GPT if supported) alongside Gemini and Argon quotas.
+      </>
+    ),
+  },
+  {
+    id: 'cmd-list-c',
+    syntax: 'agyr list -c',
+    copyText: 'agyr list -c',
+    categories: ['quota'],
+    categoryLabel: 'Quota & Utilities',
+    description: (
+      <>
+        Reads cached quota from local state without invoking the{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          agy
+        </code>{' '}
+        binary.
+      </>
+    ),
+  },
+  {
+    id: 'cmd-list-w',
+    syntax: 'agyr list -w',
+    copyText: 'agyr list -w',
+    categories: ['quota'],
+    categoryLabel: 'Quota & Utilities',
+    description: (
+      <>
+        Wide format: prevents collapsing optional model columns (Argon, Claude) on narrow terminal windows.
+      </>
+    ),
+  },
+  {
+    id: 'cmd-test',
+    syntax: 'agyr test [name...]',
+    copyText: 'agyr test',
+    categories: ['quota'],
+    categoryLabel: 'Quota & Utilities',
+    description: (
+      <>
+        Sends probe requests to accounts to initialize rolling 5-hour quota windows concurrently.
+      </>
+    ),
+  },
+  {
+    id: 'cmd-rotate',
+    syntax: 'agyr rotate [cooldown]',
+    copyText: 'agyr rotate',
+    categories: ['auto'],
+    categoryLabel: 'Automation & AI',
+    description: (
+      <>
+        When interactive{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          agy
+        </code>{' '}
+        runs out of quota, marks current account in cooldown and switches to the next ready account.
       </>
     ),
   },
@@ -169,8 +185,10 @@ export const COMMANDS: CommandItem[] = [
     description: (
       <>
         Runs headless{' '}
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-xs text-ink/90 border border-white/10">agy</code>{' '}
-        tasks with automated 429 failover. Automatically kills process on 429, switches accounts, and resumes session.
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-ink whitespace-nowrap">
+          agy
+        </code>{' '}
+        tasks with automated 429 failover. Terminates process on 429 errors, rotates accounts, and resumes session.
       </>
     ),
   },
