@@ -75,23 +75,13 @@ const CATEGORIES: Array<{ id: CommandCategory; label: string }> = [
   { id: 'auto', label: 'Automation & AI' },
 ];
 
-const CATEGORY_TABS: Array<{ id: 'all' | CommandCategory; label: string }> = [
-  { id: 'all', label: 'All Commands' },
-  ...CATEGORIES,
-];
-
 export default function CommandReference() {
-  const [activeCategory, setActiveCategory] = useState<'all' | CommandCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const groupedCategories = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
 
     return CATEGORIES.map((cat) => {
-      if (activeCategory !== 'all' && activeCategory !== cat.id) {
-        return { ...cat, commands: [] };
-      }
-
       const commands = COMMANDS.filter((cmd) => {
         if (!cmd.categories.includes(cat.id)) return false;
         if (!query) return true;
@@ -104,7 +94,7 @@ export default function CommandReference() {
 
       return { ...cat, commands };
     }).filter((group) => group.commands.length > 0);
-  }, [activeCategory, searchQuery]);
+  }, [searchQuery]);
 
   const totalVisibleCount = useMemo(() => {
     return groupedCategories.reduce((sum, g) => sum + g.commands.length, 0);
@@ -135,37 +125,8 @@ export default function CommandReference() {
           </p>
         </div>
 
-        {/* Filter Tabs & Search Bar */}
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          {/* Tabs */}
-          <div
-            className="flex items-center gap-6 overflow-x-auto border-b border-white/10"
-            role="tablist"
-            aria-label="Filter command categories"
-          >
-            {CATEGORY_TABS.map((tab) => {
-              const isActive = activeCategory === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  role="tab"
-                  id={`tab-${tab.id}`}
-                  aria-selected={isActive}
-                  aria-controls="command-reference-list"
-                  onClick={() => setActiveCategory(tab.id)}
-                  className={`-mb-px shrink-0 border-b-2 pb-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
-                    isActive
-                      ? 'border-emerald text-ink'
-                      : 'border-transparent text-muted hover:border-white/20 hover:text-ink'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-
+        {/* Search Bar */}
+        <div className="mb-8">
           {/* Search Input */}
           <div className="relative w-full sm:w-64 md:w-72">
             <label htmlFor="command-search" className="sr-only">
@@ -272,13 +233,10 @@ export default function CommandReference() {
             </p>
             <button
               type="button"
-              onClick={() => {
-                setActiveCategory('all');
-                setSearchQuery('');
-              }}
+              onClick={() => setSearchQuery('')}
               className="mt-4 rounded-md border border-emerald/40 bg-emerald/10 px-3.5 py-1.5 text-xs font-medium text-emerald transition hover:bg-emerald/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             >
-              Reset Filters
+              Clear search
             </button>
           </div>
         )}
