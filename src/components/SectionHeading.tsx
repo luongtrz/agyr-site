@@ -1,20 +1,19 @@
 import type { ReactNode } from 'react';
 
 export default function SectionHeading({
-  eyebrow,
   title,
   subtitle,
+  className = '',
 }: {
-  eyebrow: string;
+  eyebrow?: ReactNode;
   title: ReactNode;
   subtitle?: ReactNode;
+  className?: string;
 }) {
   return (
-    <div className="mx-auto mb-14 max-w-3xl text-center">
-      <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-emerald">{eyebrow}</p>
-      <h2 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">{title}</h2>
-      <div className="mx-auto mt-4 h-0.5 w-12 rounded bg-gradient-to-r from-emerald to-cyan" />
-      {subtitle && <p className="mt-5 text-base text-muted sm:text-lg">{subtitle}</p>}
+    <div className={`mb-10 text-left ${className}`.trim()}>
+      <h2 className="text-2xl font-semibold text-ink sm:text-3xl">{title}</h2>
+      {subtitle && <p className="mt-3 max-w-2xl text-muted">{subtitle}</p>}
     </div>
   );
 }

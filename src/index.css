@@ -1,37 +1,63 @@
 @import 'tailwindcss';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
-/* Design tokens (ported from legacy/styles.css). Use as bg-surface, text-emerald, font-mono, etc. */
+/* Design tokens. Use as bg-surface, text-emerald, font-mono, etc. */
 @theme {
-  --color-main: #070a11;
-  --color-surface: #0d121f;
-  --color-card: rgba(16, 23, 38, 0.75);
-  --color-terminal: #090d16;
-  --color-terminal-header: #121826;
-  --color-ink: #f8fafc;
-  --color-muted: #94a3b8;
-  --color-dim: #64748b;
-  --color-emerald: #22c55e;
-  --color-cyan: #38bdf8;
-  --color-amber: #f59e0b;
-  --color-danger: #ef4444;
-  --color-violet: #c084fc;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  --color-main: #0b0d10;
+  --color-surface: #11141a;
+  --color-card: #11141a;
+  --color-terminal: #0d1015;
+  --color-terminal-header: #151922;
+  --color-ink: #e8eaed;
+  --color-muted: #9aa3ad;
+  --color-dim: #6b7480;
+  --color-emerald: #3fb950;
+  --color-cyan: #56d364;
+  --color-amber: #d29922;
+  --color-danger: #f85149;
+  --color-violet: #9aa3ad;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
-html { scroll-behavior: smooth; background: var(--color-main); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html {
+  scroll-behavior: smooth;
+  background: var(--color-main);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 
 body {
   background-color: var(--color-main);
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
-  background-attachment: fixed;
   color: var(--color-muted);
   font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-::selection { background: rgba(34, 197, 94, 0.35); color: #fff; }
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-emerald);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(63, 185, 80, 0.3);
+  color: #fff;
+}
