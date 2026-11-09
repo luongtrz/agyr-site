@@ -36,3 +36,8 @@
     animation: none !important;
   }
 }
+
+/* Native FAQ details/summary marker reset */
+details summary::-webkit-details-marker {
+  display: none;
+}
