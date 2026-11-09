@@ -11,4 +11,4 @@ Install: `curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash`
 
 ## Reference
 - [Project home](https://agyr.luongtrz.id.vn/): overview, quick start, command reference, FAQ.
-- [Source code and full reference](https://github.com/luongtrz/rotate-agy): README, docs/reference.md, docs/agent-setup.md.
+- [Source code and full reference](https://github.com/luongtrz/agyr): README, docs/reference.md, docs/agent-setup.md.

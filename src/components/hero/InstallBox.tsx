@@ -3,7 +3,7 @@ import CopyButton from '../CopyButton';
 import { INSTALL_CMD } from '../../lib/site';
 
 const CLONE_CMD =
-  'git clone https://github.com/luongtrz/rotate-agy.git ~/tools/agy-acct && bash ~/tools/agy-acct/install.sh';
+  'git clone https://github.com/luongtrz/agyr.git ~/tools/agy-acct && bash ~/tools/agy-acct/install.sh';
 
 export default function InstallBox() {
   const [activeTab, setActiveTab] = useState<'curl' | 'clone'>('curl');

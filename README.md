@@ -1,6 +1,6 @@
 # agyr Landing Page
 
-A modern, high-performance static marketing website for [rotate-agy](https://github.com/luongtrz/rotate-agy), built with **Vite**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
+A modern, high-performance static marketing website for [agyr](https://github.com/luongtrz/agyr), built with **Vite**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
 
 - **100% Client-Side & Static**: Builds to pure HTML, CSS, JS, and SVG assets in `dist/`. No server runtime or Node.js required in production.
 - **Zero External Dependencies / CDNs**: No Google Fonts, unpkg, or third-party tracking scripts. 100% self-contained and private.
