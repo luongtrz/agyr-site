@@ -154,6 +154,30 @@ export default function Footer() {
                   agyr vs proxy routers
                 </a>
               </li>
+              <li>
+                <a
+                  href="/agyr-on-windows/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  Use agyr on Windows
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/agyr-environment-variables-and-limitations/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  Environment variables and limits
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/agy-task-with-claude-code/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  agy-task with Claude Code
+                </a>
+              </li>
             </ul>
           </div>
 

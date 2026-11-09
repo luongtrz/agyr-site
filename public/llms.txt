@@ -8,6 +8,9 @@ Install: `curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash`
 - [Fix Antigravity CLI 429 quota errors](https://agyr.luongtrz.id.vn/fix-antigravity-cli-429-quota/): what the quota error means and how agyr automates failover and resume.
 - [Use multiple Google accounts with Antigravity CLI](https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/): saving account slots, checking quota, switching accounts.
 - [agyr vs proxy routers](https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/): comparison of a local CLI swapper with proxy-based routing.
+- [Use agyr on Windows](https://agyr.luongtrz.id.vn/agyr-on-windows/): Git Bash, PowerShell and CMD wrappers, the Credential Manager backend and Windows limitations.
+- [agyr environment variables and known limitations](https://agyr.luongtrz.id.vn/agyr-environment-variables-and-limitations/): every documented variable with its default, time zone behaviour and known limitations.
+- [Delegate coding tasks to agy-task from Claude Code](https://agyr.luongtrz.id.vn/agy-task-with-claude-code/): the reviewer/coder split, worktree workflow, scope checks and exit codes.
 
 ## Reference
 - [Project home](https://agyr.luongtrz.id.vn/): overview, quick start, command reference, FAQ.
