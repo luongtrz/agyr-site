@@ -92,9 +92,115 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can Google ban my accounts for using agyr?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Unlike proxy routers (which route traffic through custom servers with forged headers and cloud IPs), agyr is simply a local authentication swapper. It runs Google's official agy binary directly on your machine. To Google's servers, it looks completely identical to you logging in and out of different accounts manually."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does agy-run maintain conversation context after hitting a 429?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When a 429 quota exhaustion is detected, agy-run terminates the current session immediately, puts that slot on cooldown, switches the active token file to the best available account, and immediately launches agy --conversation <existing-conversation-id>. Because Antigravity's conversation history is stored on disk or server session, the new account picks up the exact same context without wasting tokens re-reading files."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if all my saved accounts run out of quota simultaneously?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If the entire account pool is on cooldown, agyr and agy-run cleanly exit with code 5 (or code 3 for interactive rotate) and display the exact earliest reset time in your local timezone (e.g. \"all accounts on cooldown, earliest reset in 48m at 05:15 PM\"). It never loops aimlessly or burns tokens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does agyr work with Claude Code or Gemini CLI agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! That is one of its primary design goals. The repository ships with skills/agy/ which lets Claude Code, Antigravity, and Gemini act as orchestrator/reviewers while delegating heavy repetitive coding tasks to agy-task in isolated git worktrees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is agyr completely free? How can I support independent development?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! agyr is 100% free and open-source under the MIT license with zero commercial tiers, no premium paywalls, and no telemetry. If agyr saves you hours of coding downtime and boosts your productivity, starring the project on GitHub or buying a coffee on Ko-fi helps fuel continuous maintenance, testing harnesses, and new features."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="root"></div>
+  <noscript>
+    <style>
+      .noscript-content {
+        max-width: 42rem;
+        margin: 2rem auto;
+        padding: 2rem 1.5rem;
+        background-color: #0b0d10;
+        color: #e2e8f0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      .noscript-content h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #f8fafc;
+      }
+      .noscript-content p {
+        margin-bottom: 1.5rem;
+        color: #94a3b8;
+      }
+      .noscript-content pre {
+        background-color: #151821;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+        border: 1px solid #1e293b;
+      }
+      .noscript-content code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        color: #38bdf8;
+      }
+      .noscript-content ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .noscript-content li {
+        margin-bottom: 0.5rem;
+      }
+      .noscript-content a {
+        color: #38bdf8;
+        text-decoration: underline;
+      }
+    </style>
+    <div class="noscript-content">
+      <h1>agyr — Zero-Ban Google Account Auto-Rotation for Antigravity CLI</h1>
+      <p>Never hit a 429 quota wall again. Rotate multiple Google accounts seamlessly on Antigravity CLI (agy) with 100% local privacy, zero proxy servers, zero ban risk, and instant session resume.</p>
+      <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash</code></pre>
+      <ul>
+        <li><a href="https://github.com/luongtrz/rotate-agy">GitHub repository</a></li>
+        <li><a href="https://github.com/luongtrz/rotate-agy/blob/main/docs/reference.md">Documentation</a></li>
+        <li><a href="https://ko-fi.com/luongtrz">Ko-fi</a></li>
+      </ul>
+    </div>
+  </noscript>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
