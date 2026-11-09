@@ -14,7 +14,6 @@ A modern, high-performance static marketing website for [rotate-agy](https://git
 Requires `node` (>= 20) and `pnpm`.
 
 ```bash
-cd introduce
 pnpm install
 pnpm dev
 ```
@@ -26,11 +25,10 @@ Visit `http://localhost:5173/` in your browser.
 ## Production Build
 
 ```bash
-cd introduce
 pnpm build
 ```
 
-The production output will be generated in `introduce/dist/`.
+The production output will be generated in `dist/`.
 
 To test the production build locally:
 
@@ -49,10 +47,10 @@ Because the build is completely static with relative asset paths (`base: './'`),
 ### 1. Cloudflare Pages
 - **Build command**: `pnpm build`
 - **Build output directory**: `dist`
-- **Root directory**: `introduce`
+- **Root directory**: `/` (repository root)
 
 ### 2. GitHub Pages
-Deploy the contents of `introduce/dist` to the `gh-pages` branch or via a GitHub Actions workflow.
+Deploy the contents of `dist` to the `gh-pages` branch or via a GitHub Actions workflow.
 
 ### 3. Nginx / Apache / Caddy
-Copy the contents of `introduce/dist/` directly into your web server's document root (e.g. `/var/www/html/`).
+Copy the contents of `dist/` directly into your web server's document root (e.g. `/var/www/html/`).
