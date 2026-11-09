@@ -16,23 +16,25 @@ interface CodeBlockProps {
 }
 
 /**
- * Highlights shell commands, comments, flags, strings, roles, and paths.
+ * Highlights shell commands, comments, and flags.
+ * Comments: muted
+ * Commands: ink
+ * Flags: emerald
  */
 function highlightCodeLine(line: string, lineIndex: number): ReactNode {
   const trimmed = line.trimStart();
 
-  // If the line is entirely a comment
   if (trimmed.startsWith('#')) {
     return (
-      <span key={lineIndex} className="text-dim italic whitespace-pre-wrap break-words">
+      <span key={lineIndex} className="text-muted italic whitespace-pre">
         {line}
       </span>
     );
   }
 
-  // Tokenize line: comments, strings, flags, commands, roles, file paths, models
+  // Tokenize line: comments, flags, commands
   const tokenRegex =
-    /(#[^\n]*)|("[^"]*"|'[^']*')|(--?[a-zA-Z0-9-]+)|(\b(?:agyr|agy-run|agy-task|agy|curl)\b)|(\b(?:Role|Sub-agent):)|((?:\.[a-zA-Z0-9_./-]+\.(?:txt|md|sh|ts|js))\b)|(\bgemini-[a-zA-Z0-9.-]+\b)/g;
+    /(#[^\n]*)|(--?[a-zA-Z0-9-]+)|(\b(?:agyr|agy-run|agy-task|agy|curl)\b)/g;
 
   const elements: ReactNode[] = [];
   let lastIndex = 0;
@@ -43,48 +45,24 @@ function highlightCodeLine(line: string, lineIndex: number): ReactNode {
       elements.push(line.slice(lastIndex, match.index));
     }
 
-    const [, comment, str, flag, cmd, role, filePath, modelName] = match;
+    const [, comment, flag, cmd] = match;
 
     if (comment) {
       elements.push(
-        <span key={match.index} className="text-dim italic whitespace-pre-wrap break-words">
+        <span key={match.index} className="text-muted italic">
           {comment}
-        </span>,
-      );
-    } else if (str) {
-      elements.push(
-        <span key={match.index} className="text-emerald">
-          {str}
         </span>,
       );
     } else if (flag) {
       elements.push(
-        <span key={match.index} className="text-amber">
+        <span key={match.index} className="text-emerald">
           {flag}
         </span>,
       );
     } else if (cmd) {
       elements.push(
-        <span key={match.index} className="font-semibold text-cyan">
+        <span key={match.index} className="font-semibold text-ink">
           {cmd}
-        </span>,
-      );
-    } else if (role) {
-      elements.push(
-        <span key={match.index} className="font-semibold text-violet">
-          {role}
-        </span>,
-      );
-    } else if (filePath) {
-      elements.push(
-        <span key={match.index} className="text-amber">
-          {filePath}
-        </span>,
-      );
-    } else if (modelName) {
-      elements.push(
-        <span key={match.index} className="text-emerald">
-          {modelName}
         </span>,
       );
     }
@@ -108,41 +86,31 @@ export default function CodeBlock({
 }: CodeBlockProps) {
   return (
     <div
-      className={`relative flex flex-col rounded-xl border border-white/10 bg-terminal shadow-lg overflow-hidden min-h-[240px] lg:min-h-[280px] ${className}`}
+      className={`relative flex flex-col rounded-md border border-white/10 bg-terminal min-w-0 ${className}`}
     >
-      {/* Top action bar / reserved gutter (solves defect d: copy button never overlaps code text) */}
-      <div className="flex items-center justify-between border-b border-white/5 bg-terminal-header/80 px-3.5 py-1.5 select-none flex-none">
-        <div className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-danger/80" aria-hidden="true" />
-          <span className="h-2.5 w-2.5 rounded-full bg-amber/80" aria-hidden="true" />
-          <span className="h-2.5 w-2.5 rounded-full bg-emerald/80" aria-hidden="true" />
-          <span className="ml-2 font-mono text-[11px] font-medium uppercase tracking-wider text-dim">
-            {label}
-          </span>
-        </div>
-        <CopyButton text={copyText} className="text-xs" />
+      {/* Plain header with label on left and copy button on right */}
+      <div className="flex items-center justify-between border-b border-white/10 bg-terminal-header px-3.5 py-2 select-none">
+        <span className="font-mono text-xs text-muted">
+          {label}
+        </span>
+        <CopyButton
+          text={copyText}
+          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald focus-visible:border-emerald focus-visible:text-ink"
+        />
       </div>
 
       {/* Code body with horizontal scroll */}
-      <div className="quickstart-code-scroll overflow-hidden p-3.5 flex-1">
+      <div className="quickstart-code-scroll overflow-x-auto p-3.5 sm:p-4 min-w-0">
         <pre
-          className={`font-mono text-xs leading-relaxed text-ink/90 whitespace-pre-wrap break-words break-all w-full ${preClassName}`}
+          className={`font-mono text-xs sm:text-sm leading-relaxed text-ink whitespace-pre ${preClassName}`}
         >
           <code>
             {typeof code === 'string'
-              ? code.split('\n').map((line, idx) => {
-                  const isComment = line.trimStart().startsWith('#');
-                  return (
-                    <div
-                      key={idx}
-                      className={`min-h-[1.25rem] ${
-                        isComment ? 'whitespace-pre-wrap break-words' : ''
-                      }`}
-                    >
-                      {highlightCodeLine(line, idx)}
-                    </div>
-                  );
-                })
+              ? code.split('\n').map((line, idx) => (
+                  <div key={idx} className="min-h-[1.25rem] whitespace-pre">
+                    {highlightCodeLine(line, idx)}
+                  </div>
+                ))
               : code}
           </code>
         </pre>
