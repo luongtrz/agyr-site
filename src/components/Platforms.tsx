@@ -19,7 +19,7 @@ export default function Platforms() {
               <li>
                 <strong className="font-semibold text-ink">D-Bus Session Bus Bypass: </strong>
                 Disables GNOME Keyring fallback with{' '}
-                <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink break-all">
+                <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink [overflow-wrap:anywhere]">
                   DBUS_SESSION_BUS_ADDRESS=unix:path=/nonexistent
                 </code>{' '}
                 so{' '}
@@ -66,7 +66,7 @@ export default function Platforms() {
               <li>
                 <strong className="font-semibold text-ink">Argument Conversion Guard: </strong>
                 Bypasses MSYS path rewrites via{' '}
-                <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink break-all">
+                <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink [overflow-wrap:anywhere]">
                   MSYS2_ARG_CONV_EXCL
                 </code>{' '}
                 and terminates Windows process trees via{' '}

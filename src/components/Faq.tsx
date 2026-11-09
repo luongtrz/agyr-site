@@ -119,14 +119,14 @@ const FAQ_ITEMS: FaqItemData[] = [
 export default function Faq() {
   return (
     <section id="faq" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
             Frequently asked questions
           </h2>
         </div>
 
-        <div className="divide-y divide-white/10 border-y border-white/10">
+        <div className="max-w-3xl divide-y divide-white/10 border-y border-white/10">
           {FAQ_ITEMS.map((item, idx) => (
             <details
               key={item.id}

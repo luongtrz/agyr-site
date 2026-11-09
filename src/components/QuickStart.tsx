@@ -78,7 +78,7 @@ const STEPS: StepItem[] = [
 export default function QuickStart() {
   return (
     <section id="quick-start" className="relative py-20 sm:py-24">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="Quick Start"
@@ -95,7 +95,7 @@ export default function QuickStart() {
           />
         </Reveal>
 
-        <ol className="mt-12 space-y-10 sm:mt-16 sm:space-y-12">
+        <ol className="max-w-3xl mt-12 space-y-10 sm:mt-16 sm:space-y-12">
           {STEPS.map((step, idx) => (
             <li
               key={step.number}

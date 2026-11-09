@@ -80,7 +80,7 @@ function highlightCodeLine(line: string, lineIndex: number): ReactNode {
 export default function Orchestration() {
   return (
     <section id="agent-orchestration" className="py-16 sm:py-24 border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
             {/* Left Column: Heading, intro, flow, features, links */}

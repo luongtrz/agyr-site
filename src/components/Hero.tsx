@@ -5,7 +5,7 @@ import { REPO_URL } from '../lib/site';
 export default function Hero() {
   return (
     <section id="hero" className="relative pt-12 pb-16 sm:pt-16 sm:pb-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8 lg:items-center">
           {/* Left Column: Heading, intro, install command, actions */}
           <div className="flex flex-col items-start text-left">

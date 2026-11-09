@@ -5,7 +5,7 @@ import { UspCard } from './features/UspCard';
 export default function Features() {
   return (
     <section id="features" className="py-20 md:py-28 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="mb-12 max-w-3xl">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">

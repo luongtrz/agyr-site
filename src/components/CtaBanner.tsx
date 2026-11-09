@@ -4,7 +4,7 @@ import CopyButton from './CopyButton';
 export default function CtaBanner() {
   return (
     <section id="get-started" className="border-t border-white/10 py-16 sm:py-20">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-md border border-white/10 bg-surface p-6 sm:p-8">
           <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-ink">
             Install agyr in one command

@@ -3,7 +3,7 @@ import { SUPPORT_URL, REPO_URL } from '../lib/site';
 export default function SupportStrip() {
   return (
     <section id="support" className="border-t border-white/10 py-12 sm:py-16">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-md border border-white/10 bg-surface p-6 sm:p-8">
           <h3 className="text-lg sm:text-xl font-semibold text-ink">
             Support the project
