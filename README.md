@@ -3,7 +3,7 @@
 A modern, high-performance static marketing website for [agyr](https://github.com/luongtrz/agyr), built with **Vite**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
 
 - **100% Client-Side & Static**: Builds to pure HTML, CSS, JS, and SVG assets in `dist/`. No server runtime or Node.js required in production.
-- **Zero External Dependencies / CDNs**: No Google Fonts, unpkg, or third-party tracking scripts. 100% self-contained and private.
+- **No External CDNs or Tracking in the Source**: Fonts are self-hosted (IBM Plex via `@fontsource`) and the build contains no analytics or third-party scripts. The public deployment at agyr.luongtrz.id.vn runs on Cloudflare Pages, which adds its own Web Analytics beacon (`cloudflareinsights.com`, cookieless according to Cloudflare). If you self-host the site, `dist/` loads nothing from third parties; on Cloudflare Pages you can turn the beacon off in the dashboard.
 - **Responsive & Zero Horizontal Scroll**: Tested and verified across viewports from 320px mobile screens up to 4K displays.
 - **Accessible & Motion-Safe**: Full support for `prefers-reduced-motion` and keyboard navigation.
 
