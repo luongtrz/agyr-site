@@ -130,6 +130,30 @@ export default function Footer() {
                   AGENT.MCP.md Protocol
                 </a>
               </li>
+              <li>
+                <a
+                  href="/fix-antigravity-cli-429-quota/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  Fix Antigravity CLI 429 errors
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/use-multiple-google-accounts-with-antigravity-cli/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  Use multiple Google accounts
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/agyr-vs-proxy-routers/"
+                  className="transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-sm"
+                >
+                  agyr vs proxy routers
+                </a>
+              </li>
             </ul>
           </div>
 

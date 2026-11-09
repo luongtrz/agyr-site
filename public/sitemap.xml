@@ -8,8 +8,26 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://agyr.luongtrz.id.vn/assets/og-image.png</image:loc>
-      <image:title>agyr — Zero-Ban Google Account Auto-Rotation for Antigravity CLI</image:title>
+      <image:title>agyr — Rotate Google Accounts for Antigravity CLI</image:title>
       <image:caption>Terminal Quota Dashboard and 429 Auto-Failover Engine</image:caption>
     </image:image>
+  </url>
+  <url>
+    <loc>https://agyr.luongtrz.id.vn/fix-antigravity-cli-429-quota/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
