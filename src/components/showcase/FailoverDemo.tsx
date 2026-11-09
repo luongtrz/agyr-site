@@ -4,7 +4,8 @@ import { FAILOVER_COMMAND, FAILOVER_TERMINAL_TEXT } from './showcaseData';
 import { useTypewriter } from '../../hooks/useTypewriter';
 
 export default function FailoverDemo({ isActive = true }: { isActive?: boolean }) {
-  const [visibleStep, setVisibleStep] = useState<number>(0);
+  // Start with 7 so SSR pre-renders complete content
+  const [visibleStep, setVisibleStep] = useState<number>(7);
   const [isReplaying, setIsReplaying] = useState(false);
   const timersRef = useRef<number[]>([]);
 
@@ -55,7 +56,7 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
       playAnimation();
     } else {
       clearAllTimers();
-      setVisibleStep(0);
+      setVisibleStep(7);
     }
     return () => {
       clearAllTimers();
@@ -69,25 +70,15 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
   };
 
   let statusPillText = 'FAILOVER READY';
-  let statusPillVariant: 'emerald' | 'danger' | 'amber' | 'violet' = 'emerald';
-  let haloColor = 'rgba(56, 189, 248, 0.18)';
 
   if (visibleStep >= 6) {
     statusPillText = 'RESUME OK · 0 TOKENS LOST';
-    statusPillVariant = 'emerald';
-    haloColor = 'rgba(34, 197, 94, 0.32)';
   } else if (visibleStep >= 5) {
     statusPillText = 'CONTEXT RESUMED (9c4e1a80)';
-    statusPillVariant = 'violet';
-    haloColor = 'rgba(192, 132, 252, 0.32)';
   } else if (visibleStep >= 4) {
     statusPillText = 'FAILOVER: WORK-1 to WORK-2';
-    statusPillVariant = 'amber';
-    haloColor = 'rgba(245, 158, 11, 0.32)';
   } else if (visibleStep >= 3) {
     statusPillText = '429 QUOTA WALL HIT';
-    statusPillVariant = 'danger';
-    haloColor = 'rgba(239, 68, 68, 0.32)';
   }
 
   const failoverTools = (
@@ -95,7 +86,7 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
       type="button"
       onClick={handleReplay}
       aria-label="Replay failover sequence"
-      className="inline-flex items-center gap-1.5 rounded border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-slate-200 transition hover:border-emerald/40 hover:bg-white/10 hover:text-white"
+      className="inline-flex items-center gap-1.5 rounded border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-200 transition hover:border-emerald/40 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald"
     >
       <svg
         className={`h-3.5 w-3.5 ${isReplaying ? 'replaying-icon' : ''}`}
@@ -119,8 +110,6 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
       title="agy-run — Autonomous 429 Quota Failover & Session Resume"
       shell="daemon"
       statusPillText={statusPillText}
-      statusPillVariant={statusPillVariant}
-      haloColor={haloColor}
       tools={failoverTools}
       copyText={FAILOVER_TERMINAL_TEXT}
     >
@@ -129,11 +118,11 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
         <div className="flex flex-wrap items-center whitespace-pre-wrap break-words">
           <span className="font-semibold text-emerald">user@devbox</span>
           <span className="text-dim">:</span>
-          <span className="font-semibold text-cyan">~/projects/auth-svc</span>
+          <span className="text-dim">~/projects/auth-svc</span>
           <span className="text-dim">$ </span>
-          <span className="ml-1.5 font-semibold text-ink whitespace-pre-wrap break-words">{displayedText}</span>
+          <span className="ml-1.5 font-medium text-white whitespace-pre-wrap break-words">{displayedText}</span>
           {isTyping && (
-            <span className="ml-0.5 inline-block font-bold text-emerald animate-pulse" aria-hidden="true">
+            <span className="ml-0.5 inline-block text-emerald" aria-hidden="true">
               ▋
             </span>
           )}
@@ -141,92 +130,92 @@ export default function FailoverDemo({ isActive = true }: { isActive?: boolean }
 
         {/* Step 1: Initial slot run */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
-            visibleStep >= 1 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
+          className={`whitespace-pre-wrap break-words ${
+            visibleStep >= 1 ? 'block' : 'hidden'
           }`}
         >
-          <span className="font-bold text-cyan">[agy-run]</span>{' '}
-          <span className="text-slate-200">running on account </span>
+          <span className="font-semibold text-slate-300">[agy-run]</span>{' '}
+          <span className="text-slate-300">running on account </span>
           <span className="font-semibold text-amber">'work-1'</span>{' '}
           <span className="text-dim">(model: gemini-3.8-flash-high)</span>
         </div>
 
         {/* Step 2: agy running */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
-            visibleStep >= 2 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
+          className={`whitespace-pre-wrap break-words ${
+            visibleStep >= 2 ? 'block' : 'hidden'
           }`}
         >
           <span className="text-dim">agy: analyzing codebase and editing middleware.go...</span>
         </div>
 
-        {/* Step 3: 429 Hit with Red Alert Flash */}
+        {/* Step 3: 429 Hit */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
+          className={`whitespace-pre-wrap break-words ${
             visibleStep >= 3
-              ? 'term-line-429 translate-y-0 px-2 py-0.5 opacity-100'
-              : 'translate-y-1 opacity-0'
+              ? 'term-line-429 px-2 py-0.5'
+              : 'hidden'
           }`}
         >
-          <span className="font-bold text-cyan">[agy-run]</span>{' '}
-          <span className="font-bold text-danger">429 quota reached on 'work-1'</span>{' '}
+          <span className="font-semibold text-slate-300">[agy-run]</span>{' '}
+          <span className="font-semibold text-danger">429 quota reached on 'work-1'</span>{' '}
           <span className="font-semibold text-amber">(Resets in 4h13m20s)</span>{' '}
           <span className="text-dim">— killing agy immediately</span>
         </div>
 
-        {/* Step 4: Cooldown & Switch with Green Pulse */}
+        {/* Step 4: Cooldown & Switch */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
+          className={`whitespace-pre-wrap break-words ${
             visibleStep >= 4
-              ? 'term-line-switch translate-y-0 px-2 py-0.5 opacity-100'
-              : 'translate-y-1 opacity-0'
+              ? 'term-line-switch px-2 py-0.5'
+              : 'hidden'
           }`}
         >
-          <span className="font-bold text-cyan">[agy-run]</span>{' '}
-          <span className="text-slate-200">cooldown 'work-1' set to 4h13m20s; switching to </span>
-          <span className="font-bold text-emerald">'work-2'</span>{' '}
+          <span className="font-semibold text-slate-300">[agy-run]</span>{' '}
+          <span className="text-slate-300">cooldown 'work-1' set to 4h13m20s; switching to </span>
+          <span className="font-semibold text-emerald">'work-2'</span>{' '}
           <span className="text-dim">(weekly limit resets soonest)</span>
         </div>
 
         {/* Step 5: Resume session */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
-            visibleStep >= 5 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
+          className={`whitespace-pre-wrap break-words ${
+            visibleStep >= 5 ? 'block' : 'hidden'
           }`}
         >
-          <span className="font-bold text-cyan">[agy-run]</span>{' '}
-          <span className="text-slate-200">resuming conversation </span>
-          <span className="font-semibold text-violet break-all">9c4e1a80-bf82-49da-8b29-9e8c45e69e41</span>{' '}
-          <span className="text-slate-200">on account </span>
-          <span className="font-bold text-emerald">'work-2'</span>
+          <span className="font-semibold text-slate-300">[agy-run]</span>{' '}
+          <span className="text-slate-300">resuming conversation </span>
+          <span className="font-mono text-slate-200">9c4e1a80-bf82-49da-8b29-9e8c45e69e41</span>{' '}
+          <span className="text-slate-300">on account </span>
+          <span className="font-semibold text-emerald">'work-2'</span>
         </div>
 
         {/* Step 6: Victory OK */}
         <div
-          className={`whitespace-pre-wrap break-words transition-all duration-300 ${
+          className={`whitespace-pre-wrap break-words ${
             visibleStep >= 6
-              ? 'term-line-ok translate-y-0 px-2 py-0.5 opacity-100'
-              : 'translate-y-1 opacity-0'
+              ? 'term-line-ok px-2 py-0.5'
+              : 'hidden'
           }`}
         >
-          <span className="font-bold text-cyan">[agy-run]</span>{' '}
-          <span className="text-slate-200">done (account </span>
-          <span className="font-bold text-emerald">'work-2'</span>
-          <span className="text-slate-200">) — </span>
+          <span className="font-semibold text-slate-300">[agy-run]</span>{' '}
+          <span className="text-slate-300">done (account </span>
+          <span className="font-semibold text-emerald">'work-2'</span>
+          <span className="text-slate-300">) — </span>
           <span className="font-bold text-emerald">RESULT=OK</span>
         </div>
 
         {/* Step 7: Completed Prompt */}
         <div
-          className={`whitespace-pre-wrap break-words pt-1 transition-all duration-300 ${
-            visibleStep >= 7 ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
+          className={`whitespace-pre-wrap break-words pt-1 ${
+            visibleStep >= 7 ? 'block' : 'hidden'
           }`}
         >
           <span className="font-semibold text-emerald">user@devbox</span>
           <span className="text-dim">:</span>
-          <span className="font-semibold text-cyan">~/projects/auth-svc</span>
+          <span className="text-dim">~/projects/auth-svc</span>
           <span className="text-dim">$ </span>
-          <span className="ml-1 inline-block font-bold text-emerald animate-pulse" aria-hidden="true">
+          <span className="ml-1 inline-block text-emerald" aria-hidden="true">
             ▋
           </span>
         </div>

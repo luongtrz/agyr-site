@@ -15,7 +15,7 @@ export default function Showcase() {
     <section
       id="demo"
       ref={sectionRef}
-      className="relative overflow-hidden py-20 sm:py-28"
+      className="relative py-16 sm:py-24"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal>
@@ -26,11 +26,11 @@ export default function Showcase() {
           />
         </Reveal>
 
-        {/* Showcase Navigation Tabs */}
+        {/* Showcase Navigation Tabs (plain text tabs with active underline) */}
         <div
           role="tablist"
           aria-label="Interactive Terminal Demos"
-          className="mb-8 flex flex-wrap justify-center gap-3"
+          className="mb-6 flex flex-wrap items-center justify-start gap-6 border-b border-white/10"
         >
           {/* Tab 1: Quota Dashboard */}
           <button
@@ -40,33 +40,17 @@ export default function Showcase() {
             aria-selected={activeTab === 'list'}
             aria-controls="panel-showcase-list"
             onClick={() => setActiveTab('list')}
-            className={`inline-flex max-w-full items-center gap-2.5 rounded-lg border px-4 py-2.5 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald sm:text-sm ${
+            className={`-mb-px pb-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald ${
               activeTab === 'list'
-                ? 'border-emerald/40 bg-emerald/10 text-white shadow-lg shadow-emerald/5'
-                : 'border-white/10 bg-white/[0.04] text-muted hover:border-white/20 hover:bg-white/[0.08] hover:text-white'
+                ? 'border-b-2 border-emerald font-semibold text-white'
+                : 'border-b-2 border-transparent text-dim hover:text-slate-300'
             }`}
           >
-            <svg
-              className="h-4 w-4 shrink-0"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <line x1="3" y1="9" x2="21" y2="9" />
-              <line x1="9" y1="21" x2="9" y2="9" />
-            </svg>
-            <span className="break-words">
-              1. Real-time Quota Dashboard (
-              <code className="rounded bg-black/40 px-1 py-0.5 font-mono text-[11px] text-emerald">
-                agyr list
-              </code>
-              )
-            </span>
+            Quota Dashboard (
+            <code className="font-mono text-xs whitespace-nowrap">
+              agyr list
+            </code>
+            )
           </button>
 
           {/* Tab 2: Autonomous 429 Failover */}
@@ -77,33 +61,17 @@ export default function Showcase() {
             aria-selected={activeTab === 'rotate'}
             aria-controls="panel-showcase-rotate"
             onClick={() => setActiveTab('rotate')}
-            className={`inline-flex max-w-full items-center gap-2.5 rounded-lg border px-4 py-2.5 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan sm:text-sm ${
+            className={`-mb-px pb-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald ${
               activeTab === 'rotate'
-                ? 'border-cyan/40 bg-cyan/10 text-white shadow-lg shadow-cyan/5'
-                : 'border-white/10 bg-white/[0.04] text-muted hover:border-white/20 hover:bg-white/[0.08] hover:text-white'
+                ? 'border-b-2 border-emerald font-semibold text-white'
+                : 'border-b-2 border-transparent text-dim hover:text-slate-300'
             }`}
           >
-            <svg
-              className="h-4 w-4 shrink-0"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="23 4 23 10 17 10" />
-              <polyline points="1 20 1 14 7 14" />
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-            </svg>
-            <span className="break-words">
-              2. Autonomous 429 Failover (
-              <code className="rounded bg-black/40 px-1 py-0.5 font-mono text-[11px] text-cyan">
-                agy-run
-              </code>
-              )
-            </span>
+            Failover Engine (
+            <code className="font-mono text-xs whitespace-nowrap">
+              agy-run
+            </code>
+            )
           </button>
         </div>
 
@@ -128,23 +96,19 @@ export default function Showcase() {
           </div>
         </div>
 
-        {/* Caption */}
-        <Reveal delay={200}>
-          <div className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-dim sm:text-sm">
-            <p className="break-words">
-              <strong className="font-semibold text-slate-200">Zero Context Loss:</strong>{' '}
-              When a 429 occurs,{' '}
-              <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-cyan">
-                agy-run
-              </code>{' '}
-              extracts the reset countdown, switches slots, and passes{' '}
-              <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-cyan break-all">
-                --conversation &lt;id&gt;
-              </code>{' '}
-              so the replacement account continues immediately without reprocessing earlier tokens.
-            </p>
-          </div>
-        </Reveal>
+        {/* Zero Context Loss Note */}
+        <p className="mt-4 text-sm leading-relaxed text-dim sm:text-base">
+          <strong className="font-semibold text-slate-200">Zero context loss:</strong>{' '}
+          When a 429 occurs,{' '}
+          <code className="whitespace-nowrap rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-200 sm:text-sm">
+            agy-run
+          </code>{' '}
+          extracts the reset countdown, switches slots, and passes{' '}
+          <code className="whitespace-nowrap rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-200 sm:text-sm">
+            --conversation &lt;id&gt;
+          </code>{' '}
+          so the replacement account continues immediately without reprocessing earlier tokens.
+        </p>
       </div>
     </section>
   );
