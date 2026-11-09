@@ -1,148 +1,124 @@
 import './hero/hero.css';
-import ConstellationCanvas from './hero/ConstellationCanvas';
-import HeroTicker from './hero/HeroTicker';
-import StatChips from './hero/StatChips';
 import InstallBox from './hero/InstallBox';
-import HeroMetrics from './hero/HeroMetrics';
-import { REPO_URL, SUPPORT_URL } from '../lib/site';
+import { REPO_URL } from '../lib/site';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-24">
-      {/* Background Layer: Aurora Blobs & Perspective Grid */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        {/* Ambient Aurora Blobs */}
-        <div
-          className="hero-aurora-1 absolute -top-[120px] left-[15%] h-[550px] w-[550px] rounded-full opacity-35 blur-[90px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(34, 197, 94, 0.28) 0%, rgba(34, 197, 94, 0.05) 55%, transparent 75%)',
-          }}
-        />
-        <div
-          className="hero-aurora-2 absolute top-[60px] right-[12%] h-[620px] w-[620px] rounded-full opacity-30 blur-[90px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0.04) 55%, transparent 75%)',
-          }}
-        />
-        <div
-          className="hero-aurora-3 absolute -bottom-[150px] left-[35%] h-[480px] w-[480px] rounded-full opacity-25 blur-[90px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(192, 132, 252, 0.18) 0%, rgba(192, 132, 252, 0.03) 60%, transparent 80%)',
-          }}
-        />
+    <section id="hero" className="relative pt-12 pb-16 sm:pt-16 sm:pb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8 lg:items-center">
+          {/* Left Column: Heading, intro, install command, actions */}
+          <div className="flex flex-col items-start text-left">
+            <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl leading-tight">
+              Never Hit a <span className="text-emerald">429</span> Quota Wall on Antigravity CLI Again.
+            </h1>
 
-        {/* 3D Perspective Grid */}
-        <div className="hero-grid-perspective" />
-      </div>
+            <p className="mt-4 text-base sm:text-lg text-muted leading-relaxed">
+              agyr rotates multiple Google accounts for official agy automatically. Pure Bash swapper with no proxy servers, no ban risk, real-time quota inspection, and conversation resume.
+            </p>
 
-      {/* Interactive Constellation Canvas of 5 Google Account Nodes */}
-      <ConstellationCanvas />
+            <div className="mt-6 w-full">
+              <InstallBox />
+            </div>
 
-      {/* Floating Stat Chips in Side Gutters (on screens >= 1700px) */}
-      <StatChips variant="gutters" />
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="#quick-start"
+                className="inline-flex items-center justify-center rounded-md bg-emerald px-4 py-2.5 text-sm font-medium text-main transition-colors hover:bg-emerald/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
+              >
+                Get started
+              </a>
 
-      {/* Main Hero Content Container */}
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
-        {/* Eyebrow Badge */}
-        <div className="mb-4 inline-flex items-center gap-2.5 rounded-full border border-emerald/30 bg-emerald/10 px-3.5 py-1 text-xs font-semibold text-slate-200 shadow-[0_0_20px_rgba(34,197,94,0.12)] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(34,197,94,0.24)]">
-          <span className="badge-dot" aria-hidden="true" />
-          <span>Open Source · Pure Bash · Linux &amp; Windows</span>
+              <a
+                href={REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+
+            <p className="mt-3 text-xs text-muted">
+              Open source · MIT · Pure Bash · Linux &amp; Windows
+            </p>
+          </div>
+
+          {/* Right Column: Static Terminal Transcript */}
+          <div className="w-full">
+            <div className="rounded-md border border-white/10 bg-terminal overflow-hidden">
+              <div className="border-b border-white/10 bg-terminal-header px-4 py-2 font-mono text-xs text-dim">
+                failover.log
+              </div>
+              <div className="p-4 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto text-muted space-y-1.5">
+                <div className="text-ink">
+                  <span className="text-dim select-none">$ </span>
+                  <span>agy-run --add-dir . --prompt &quot;Refactor auth middleware&quot;</span>
+                </div>
+                <div className="text-dim">
+                  [agy-run] running on account &apos;work-1&apos; (model: gemini-3.8-flash-high)
+                </div>
+                <div className="text-dim">
+                  agy: analyzing codebase and editing middleware.go...
+                </div>
+                <div>
+                  <span className="text-dim">[agy-run] </span>
+                  <span className="text-danger">429 quota reached on &apos;work-1&apos;</span>{' '}
+                  <span className="text-amber">(Resets in 4h13m20s)</span>{' '}
+                  <span className="text-dim">— killing agy immediately</span>
+                </div>
+                <div>
+                  <span className="text-dim">[agy-run] cooldown &apos;work-1&apos; set to 4h13m20s; switching to </span>
+                  <span className="text-emerald">&apos;work-2&apos;</span>{' '}
+                  <span className="text-dim">(weekly limit resets soonest)</span>
+                </div>
+                <div>
+                  <span className="text-dim">[agy-run] resuming conversation 9c4e1a80-bf82-49da-8b29-9e8c45e69e41 on account </span>
+                  <span className="text-emerald">&apos;work-2&apos;</span>
+                </div>
+                <div>
+                  <span className="text-dim">[agy-run] done (account </span>
+                  <span className="text-emerald">&apos;work-2&apos;</span>
+                  <span className="text-dim">) — </span>
+                  <span className="text-emerald font-semibold">RESULT=OK</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Live Simulation Ticker (Safe Document Flow to Avoid Headline Overlap) */}
-        <HeroTicker />
-
-        {/* Main Headline */}
-        <h1 className="max-w-4xl text-3xl font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl leading-[1.15]">
-          Never Hit a <span className="text-gradient-red-orange">429 Quota Wall</span> on{' '}
-          <br className="hidden sm:inline" />
-          <span className="text-gradient-cyan-emerald">Antigravity CLI</span> Again.
-        </h1>
-
-        {/* Subtitle */}
-        <p className="mt-6 max-w-2xl text-base text-muted sm:text-lg lg:text-xl leading-relaxed">
-          <strong className="text-white">agyr</strong> rotates multiple Google accounts for official{' '}
-          <code className="rounded border border-white/10 bg-white/10 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-slate-200">
-            agy
-          </code>{' '}
-          automatically. Pure Bash swapper with <strong>zero proxy servers</strong>,{' '}
-          <strong>zero ban risk</strong>, real-time quota inspection, and{' '}
-          <strong>seamless conversation resume</strong>.
-        </p>
-
-        {/* Quick Install Box */}
-        <div className="mt-8 w-full">
-          <InstallBox />
+        {/* Below: Three-item definition list of facts */}
+        <div className="mt-12 sm:mt-16 border-t border-white/10 pt-8 sm:pt-10">
+          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+            <div>
+              <dt className="font-mono text-sm font-semibold text-ink">No background daemon</dt>
+              <dd className="mt-2 text-sm text-muted leading-relaxed">
+                Pure Bash CLI script. No persistent background daemons, listening ports, or Node/Go containers.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-sm font-semibold text-ink">Runs official agy binary</dt>
+              <dd className="mt-2 text-sm text-muted leading-relaxed">
+                Direct execution of the official Antigravity CLI binary with zero binary modifications or MITM proxies.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-sm font-semibold text-ink">Tokens stay local (chmod 600)</dt>
+              <dd className="mt-2 text-sm text-muted leading-relaxed">
+                OAuth tokens stored on local disk with chmod 600 permissions or native OS Credential Manager.
+              </dd>
+            </div>
+          </dl>
         </div>
-
-        {/* Call to Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#quick-start"
-            className="btn-shimmer-sweep group inline-flex items-center gap-2 rounded-xl border border-white/20 bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_4px_20px_rgba(34,197,94,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(34,197,94,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
-          >
-            <span>Get Started in 2 Minutes</span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-transform duration-200 group-hover:translate-x-1"
-              aria-hidden="true"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
-
-          <a
-            href={REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-ink backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
-            <span>View on GitHub</span>
-          </a>
-
-          <a
-            href={SUPPORT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Support development on Ko-fi"
-            className="inline-flex items-center gap-2 rounded-xl border border-amber/35 bg-amber/10 px-5 py-3 text-sm font-semibold text-amber backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:border-amber/60 hover:bg-amber/20 hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber"
-          >
-            <svg
-              className="h-4 w-4 fill-current text-amber"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-            <span>Support on Ko-fi</span>
-          </a>
-        </div>
-
-        {/* Responsive Stat Chips for Medium/Small Viewports (< 1700px) */}
-        <StatChips variant="inline" />
-
-        {/* 4 Metric Cards Strip Under Hero */}
-        <HeroMetrics />
       </div>
     </section>
   );
