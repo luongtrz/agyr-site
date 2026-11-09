@@ -1,0 +1,14 @@
+# agyr
+
+> agyr is an open-source, pure Bash CLI that rotates Google accounts for Antigravity CLI (agy). When an account hits a 429 quota error, agy-run puts it on cooldown, switches to the next ready account and resumes the same conversation with `agy --conversation`. It runs the official agy binary directly (no proxy), keeps tokens on the local machine (chmod 600 or the OS credential store), and supports Linux and Windows. MIT licensed.
+
+Install: `curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash`
+
+## Guides
+- [Fix Antigravity CLI 429 quota errors](https://agyr.luongtrz.id.vn/fix-antigravity-cli-429-quota/): what the quota error means and how agyr automates failover and resume.
+- [Use multiple Google accounts with Antigravity CLI](https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/): saving account slots, checking quota, switching accounts.
+- [agyr vs proxy routers](https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/): comparison of a local CLI swapper with proxy-based routing.
+
+## Reference
+- [Project home](https://agyr.luongtrz.id.vn/): overview, quick start, command reference, FAQ.
+- [Source code and full reference](https://github.com/luongtrz/rotate-agy): README, docs/reference.md, docs/agent-setup.md.
