@@ -102,7 +102,7 @@
         "name": "Can Google ban my accounts for using agyr?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Unlike proxy routers (which route traffic through custom servers with forged headers and cloud IPs), agyr is simply a local authentication swapper. It runs Google's official agy binary directly on your machine. To Google's servers, it looks completely identical to you logging in and out of different accounts manually."
+          "text": "No. Unlike proxy routers (which route traffic through custom servers with forged headers and cloud IPs), agyr is a local authentication swapper. It runs Google's official agy binary directly on your machine. To Google's servers, it looks identical to logging in and out of different accounts manually."
         }
       },
       {
@@ -110,7 +110,7 @@
         "name": "How does agy-run maintain conversation context after hitting a 429?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "When a 429 quota exhaustion is detected, agy-run terminates the current session immediately, puts that slot on cooldown, switches the active token file to the best available account, and immediately launches agy --conversation <existing-conversation-id>. Because Antigravity's conversation history is stored on disk or server session, the new account picks up the exact same context without wasting tokens re-reading files."
+          "text": "When a 429 quota exhaustion is detected, agy-run terminates the session, marks that slot on cooldown, switches the active token file to the best available account, and launches agy --conversation <existing-conversation-id>. Because Antigravity's conversation history is stored on disk or server session, the new account resumes the same context without re-reading files."
         }
       },
       {
@@ -118,7 +118,7 @@
         "name": "What happens if all my saved accounts run out of quota simultaneously?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "If the entire account pool is on cooldown, agyr and agy-run cleanly exit with code 5 (or code 3 for interactive rotate) and display the exact earliest reset time in your local timezone (e.g. \"all accounts on cooldown, earliest reset in 48m at 05:15 PM\"). It never loops aimlessly or burns tokens."
+          "text": "If the entire account pool is on cooldown, agyr and agy-run exit with code 5 (or code 3 for interactive rotate) and display the earliest reset time in your local timezone (e.g. \"all accounts on cooldown, earliest reset in 48m at 05:15 PM\"). It does not loop or burn tokens."
         }
       },
       {
@@ -126,7 +126,7 @@
         "name": "Does agyr work with Claude Code or Gemini CLI agents?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! That is one of its primary design goals. The repository ships with skills/agy/ which lets Claude Code, Antigravity, and Gemini act as orchestrator/reviewers while delegating heavy repetitive coding tasks to agy-task in isolated git worktrees."
+          "text": "Yes. The repository ships with skills/agy/, which lets Claude Code, Antigravity, and Gemini act as orchestrators and reviewers while delegating repetitive coding tasks to agy-task in isolated git worktrees."
         }
       },
       {
@@ -134,7 +134,7 @@
         "name": "Is agyr completely free? How can I support independent development?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! agyr is 100% free and open-source under the MIT license with zero commercial tiers, no premium paywalls, and no telemetry. If agyr saves you hours of coding downtime and boosts your productivity, starring the project on GitHub or buying a coffee on Ko-fi helps fuel continuous maintenance, testing harnesses, and new features."
+          "text": "Yes. agyr is free and open-source under the MIT license with no commercial tiers, no paywalls, and no telemetry. If agyr saves you hours of coding downtime, starring the project on GitHub or buying a coffee on Ko-fi helps fund continuous maintenance, testing harnesses, and new features."
         }
       }
     ]
@@ -191,8 +191,8 @@
       }
     </style>
     <div class="noscript-content">
-      <h1>agyr — Zero-Ban Google Account Auto-Rotation for Antigravity CLI</h1>
-      <p>Never hit a 429 quota wall again. Rotate multiple Google accounts seamlessly on Antigravity CLI (agy) with 100% local privacy, zero proxy servers, zero ban risk, and instant session resume.</p>
+      <h1>agyr — Rotate Google Accounts for Antigravity CLI</h1>
+      <p>Open-source, pure Bash CLI to rotate Google accounts for Antigravity CLI (agy) on 429 quota errors and resume the active conversation locally.</p>
       <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash</code></pre>
       <ul>
         <li><a href="https://github.com/luongtrz/rotate-agy">GitHub repository</a></li>
