@@ -14,7 +14,7 @@ const FAQ_ITEMS: FaqItemData[] = [
     question: 'Can Google ban my accounts for using agyr?',
     answer: (
       <p>
-        No. Unlike proxy routers (which route traffic through custom servers with forged headers and cloud IPs),{' '}
+        We cannot promise that. Unlike proxy routers (which send traffic through another server),{' '}
         <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink">
           agyr
         </code>{' '}
@@ -22,8 +22,12 @@ const FAQ_ITEMS: FaqItemData[] = [
         <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink">
           agy
         </code>{' '}
-        binary directly on your machine. To Google&apos;s servers, it looks identical to logging in and
-        out of different accounts manually.
+        binary directly on your machine and only changes which saved account&apos;s token{' '}
+        <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs sm:text-sm text-ink">
+          agy
+        </code>{' '}
+        uses, the same as signing out and back in by hand. Whether Google allows several accounts
+        depends on its terms for your plan, so read them before you rely on rotation.
       </p>
     ),
   },

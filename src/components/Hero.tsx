@@ -14,7 +14,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-muted leading-relaxed">
-              agyr rotates multiple Google accounts for official agy automatically. Pure Bash swapper with no proxy servers, no ban risk, real-time quota inspection, and conversation resume.
+              agyr rotates multiple Google accounts for official agy automatically. Pure Bash swapper with no proxy servers, real-time quota inspection, and conversation resume.
             </p>
 
             <div className="mt-6 w-full">

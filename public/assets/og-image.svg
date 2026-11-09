@@ -105,7 +105,7 @@
   <!-- Subtitle -->
   <g transform="translate(80, 290)">
     <text x="0" y="0" class="og-font" font-size="19" font-weight="400" fill="#94a3b8">
-      Zero-Ban Google Account Auto-Rotation for Antigravity CLI.
+      Google Account Auto-Rotation for Antigravity CLI.
     </text>
     <text x="0" y="26" class="og-font" font-size="17" font-weight="400" fill="#64748b">
       100% local privacy, authentic client TLS, and instant session resume.
@@ -124,7 +124,7 @@
     <g transform="translate(166, 0)">
       <rect x="0" y="0" width="136" height="32" rx="8" fill="rgba(16, 24, 39, 0.8)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1"/>
       <circle cx="16" cy="16" r="4" fill="#38bdf8"/>
-      <text x="28" y="21" class="og-font" font-size="12" font-weight="600" fill="#e2e8f0">Zero Ban Risk</text>
+      <text x="28" y="21" class="og-font" font-size="12" font-weight="600" fill="#e2e8f0">No Proxy Server</text>
     </g>
     <!-- Pill 3 -->
     <g transform="translate(312, 0)">

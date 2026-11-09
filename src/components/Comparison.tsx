@@ -12,8 +12,8 @@ export default function Comparison() {
               Native CLI swapper vs proxy routers
             </h2>
             <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
-              Why proxy architectures (like <InlineCode>9router</InlineCode> or MITM daemons) risk
-              account flags, and how <InlineCode>agyr</InlineCode> solves rotation cleanly at the
+              How proxy architectures (like <InlineCode>9router</InlineCode> or MITM daemons) differ
+              from a local swapper like <InlineCode>agyr</InlineCode>, which rotates accounts at the
               process level.{' '}
               <a
                 href="/agyr-vs-proxy-routers/"

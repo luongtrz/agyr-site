@@ -83,7 +83,7 @@
         },
         "featureList": [
           "100% Local & Privacy-First (OAuth tokens stay chmod 600 or in OS Credential Manager)",
-          "Zero-Ban Risk Architecture (native CLI binary execution with authentic client TLS fingerprints)",
+          "Runs the official agy binary directly with no proxy, using the normal client TLS fingerprint",
           "Seamless Auto-Rotation on HTTP 429 with automatic conversation resume",
           "Real-time Quota Dashboard with multi-account parallel measurement",
           "AI Agent Orchestration Skill for Claude Code, Antigravity, and Gemini agents"
@@ -102,7 +102,7 @@
         "name": "Can Google ban my accounts for using agyr?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Unlike proxy routers (which route traffic through custom servers with forged headers and cloud IPs), agyr is a local authentication swapper. It runs Google's official agy binary directly on your machine. To Google's servers, it looks identical to logging in and out of different accounts manually."
+          "text": "We cannot promise that. Unlike proxy routers (which send traffic through another server), agyr is a local authentication swapper. It runs Google's official agy binary directly on your machine and only changes which saved account's token agy uses, the same as signing out and back in by hand. Whether Google allows several accounts depends on its terms for your plan, so read them before you rely on rotation."
         }
       },
       {

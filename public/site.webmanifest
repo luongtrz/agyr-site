@@ -1,7 +1,7 @@
 {
   "name": "agyr — Antigravity CLI Account Swapper",
   "short_name": "agyr",
-  "description": "Zero-Ban Google Account Auto-Rotation and Real-time Quota Monitor for Antigravity CLI",
+  "description": "Google account auto-rotation and real-time quota monitor for Antigravity CLI",
   "lang": "en",
   "categories": [
     "developer tools",

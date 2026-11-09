@@ -23,13 +23,13 @@ export const uspItems: UspItem[] = [
     ],
   },
   {
-    id: 'zero-ban-risk',
-    title: 'Zero-Ban Risk Architecture',
+    id: 'official-binary',
+    title: 'Official Binary, No Proxy',
     description: (
       <>
-        Unlike reverse-proxy tools that get flagged by Google for datacenter IPs and forged TLS
-        signatures, <InlineCode>agyr</InlineCode> directly invokes the official{' '}
-        <InlineCode>agy</InlineCode> binary from your machine.
+        Unlike proxy-based tools that route requests through another server,{' '}
+        <InlineCode>agyr</InlineCode> directly invokes the official <InlineCode>agy</InlineCode>{' '}
+        binary from your machine and only swaps which account it signs in with.
       </>
     ),
     points: [
@@ -78,16 +78,16 @@ export const comparisonRows: ComparisonRow[] = [
     },
   },
   {
-    id: 'ban-risk',
-    title: 'Account Ban Risk',
-    subtitle: 'Google anti-harvesting detection',
+    id: 'request-origin',
+    title: 'Request Origin',
+    subtitle: 'What Google sees',
     agyr: {
       description:
-        'Authentic Google CLI binary, real client TLS fingerprints, and genuine residential IP.',
+        'Requests come from the official agy binary with its normal TLS fingerprint, from your own machine and network.',
     },
     proxy: {
       description:
-        'Fake TLS fingerprints, cloud/datacenter IP blacklists, and abnormal API call sequences.',
+        'Requests can carry a proxy-generated TLS signature and may come from shared or datacenter IPs, depending on deployment.',
     },
   },
   {
