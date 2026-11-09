@@ -4,29 +4,19 @@ export default function BackToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
-          setVisible(scrollPos > 600);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+      setVisible(scrollPos > 400);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initial check
     handleScroll();
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToTop = () => {
+    if (typeof window === 'undefined') return;
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({
       top: 0,
@@ -38,20 +28,17 @@ export default function BackToTop() {
     <button
       type="button"
       onClick={scrollToTop}
-      aria-label="Back to top of page"
-      title="Back to top"
-      className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-cyan/35 bg-surface/90 text-cyan shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:border-emerald hover:text-emerald hover:shadow-[0_10px_28px_rgba(0,0,0,0.6),0_0_18px_rgba(34,197,94,0.35)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald/60 sm:bottom-8 sm:right-8 sm:h-12 sm:w-12 motion-reduce:transition-opacity motion-reduce:duration-100 ${
-        visible
-          ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none translate-y-4 opacity-0'
+      aria-label="Back to top"
+      className={`fixed bottom-6 right-6 z-50 flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-surface text-muted transition-opacity duration-150 hover:border-white/20 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
+        visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
       <svg
-        className="h-5 w-5"
+        className="h-4 w-4"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden="true"
