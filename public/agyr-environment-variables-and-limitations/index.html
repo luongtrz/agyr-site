@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>agyr Environment Variables and Known Limitations</title>
+  <meta name="description" content="Complete reference for agyr environment variables and known limitations. Review configuration options, default values, time zone handling, and boundaries.">
+  <link rel="canonical" href="https://agyr.luongtrz.id.vn/agyr-environment-variables-and-limitations/">
+  <meta name="author" content="Trần Lượng">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="agyr">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="agyr Environment Variables and Known Limitations">
+  <meta property="og:description" content="Complete reference for agyr environment variables and known limitations. Review configuration options, default values, time zone handling, and boundaries.">
+  <meta property="og:url" content="https://agyr.luongtrz.id.vn/agyr-environment-variables-and-limitations/">
+  <meta property="og:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="agyr Environment Variables and Known Limitations">
+  <meta name="twitter:description" content="Complete reference for agyr environment variables and known limitations. Review configuration options, default values, time zone handling, and boundaries.">
+  <meta name="twitter:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://agyr.luongtrz.id.vn/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "agyr environment variables and known limitations",
+            "item": "https://agyr.luongtrz.id.vn/agyr-environment-variables-and-limitations/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "headline": "agyr environment variables and known limitations",
+        "description": "Complete reference for agyr environment variables and known limitations. Review configuration options, default values, time zone handling, and boundaries.",
+        "author": {
+          "@type": "Person",
+          "name": "Trần Lượng",
+          "url": "https://github.com/luongtrz"
+        },
+        "dateModified": "2026-11-09",
+        "mainEntityOfPage": "https://agyr.luongtrz.id.vn/agyr-environment-variables-and-limitations/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      background-color: #0b0d10;
+      color: #d7dae0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      background-color: #0b0d10;
+      color: #d7dae0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 44rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2.5rem;
+    }
+    nav a {
+      color: #3fb950;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    h2 {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      margin-top: 2.25rem;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 1.15rem;
+      color: #d7dae0;
+    }
+    .muted {
+      color: #9aa3ad;
+    }
+    a {
+      color: #3fb950;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88em;
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 4px;
+      padding: 0.15em 0.35em;
+      word-break: break-word;
+    }
+    pre {
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      max-width: 100%;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      word-break: normal;
+      white-space: pre;
+    }
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0;
+      border: 1px solid #232831;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    th, td {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid #232831;
+      vertical-align: top;
+    }
+    th {
+      background-color: #11141a;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    tr:last-child td,
+    tr:last-child th {
+      border-bottom: none;
+    }
+    th strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+    }
+    th span.subtext {
+      display: block;
+      color: #9aa3ad;
+      font-weight: 400;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      margin-top: 0.15rem;
+    }
+    .table-note {
+      font-size: 0.85rem;
+      color: #9aa3ad;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #232831;
+      font-size: 0.875rem;
+      color: #9aa3ad;
+    }
+    footer p {
+      margin: 0;
+      color: #9aa3ad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="https://agyr.luongtrz.id.vn/">← agyr Home</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>agyr environment variables and known limitations</h1>
+      <p>
+        The <code>agyr</code> tool suite rotates multiple Google accounts for Google Antigravity CLI (<code>agy</code>) and monitors account quotas in real time. This guide documents configuration environment variables, timestamp formatting, time zone handling, and known limitations across <code>agyr</code>, <code>agy-run</code>, and <code>agy-task</code>. Install <code>agyr</code> using the unified installer:
+      </p>
+      <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash</code></pre>
+
+      <h2>Environment Variables Reference</h2>
+      <p>
+        The <code>agyr</code> commands read configuration options through environment variables to manage data directories, binary selection, time zones, output styling, and runner timeouts. The table below lists every environment variable documented in the official reference specification, including its default value and purpose.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Variable</th>
+              <th scope="col">Default</th>
+              <th scope="col">Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>AGY_HOME</code></th>
+              <td><code>~/.gemini/antigravity-cli</code></td>
+              <td><code>agy</code> data directory</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGY_BIN</code></th>
+              <td><code>agy</code></td>
+              <td><code>agy</code> binary</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGY_TZ</code></th>
+              <td><code>UTC-7</code> (UTC+7)</td>
+              <td>Time zone for displayed timestamps</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGY_NOW</code></th>
+              <td>current epoch</td>
+              <td>Test hook: override current time</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGYR_COLOR</code></th>
+              <td><code>auto</code></td>
+              <td><code>auto</code> (colored on TTY when <code>NO_COLOR</code> is unset), <code>always</code>, or <code>never</code></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGYR_TEST_TIMEOUT</code></th>
+              <td><code>120</code></td>
+              <td>Per-account timeout in seconds for <code>agyr test</code></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGY_RUN_MAX_SWITCH</code></th>
+              <td><code>10</code></td>
+              <td>Maximum account switches per <code>agy-run</code></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>AGY_RUN_POLL</code></th>
+              <td><code>1</code></td>
+              <td>Poll interval in seconds for <code>agy-run</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        In daily operation, <code>AGY_HOME</code> is the <code>agy</code> data directory (default <code>~/.gemini/antigravity-cli</code>), and <code>AGY_BIN</code> specifies the <code>agy</code> binary. <code>AGYR_COLOR</code> controls terminal coloring (<code>auto</code>: colored on a TTY when <code>NO_COLOR</code> is unset, <code>always</code>, or <code>never</code>).
+      </p>
+      <p>
+        For headless automation, <code>AGY_RUN_POLL</code> sets the poll interval (default 1s) and <code>AGY_RUN_MAX_SWITCH</code> caps failover switches (default 10, exiting with code 6). <code>AGYR_TEST_TIMEOUT</code> limits individual <code>agyr test</code> probes to 120 seconds, and <code>AGY_NOW</code> is a test hook for overriding epoch time in test suites.
+      </p>
+      <!-- src: reference.md "Environment variables" -->
+
+      <h2>Time Zone Behavior and Timestamp Formatting</h2>
+      <p>
+        All timestamps displayed by <code>agyr</code> default to UTC+7 in <code>dd/mm/yyyy hh:mm AM|PM</code> format (for example, <code>01/10/2026 07:14 PM</code>). This consistent display formatting applies uniformly across quota inspection tables in <code>agyr list</code> and connection probe summaries in <code>agyr test</code>, regardless of the host machine's system locale or time zone.
+      </p>
+      <p>
+        Override the display time zone with the <code>AGY_TZ</code> environment variable (for example, <code>AGY_TZ=UTC</code>). In standard POSIX TZ syntax, offset signs are inverted: a positive offset east of UTC uses a minus sign, making <code>UTC-7</code> the default representation for UTC+7.
+      </p>
+      <!-- src: reference.md "Time zone" -->
+
+      <h2>Known Limitations of agyr</h2>
+      <p>
+        The official technical reference lists the following known limitations for <code>agyr</code> and its headless runner <code>agy-run</code>:
+      </p>
+      <ul>
+        <li>Running <code>agy</code> processes keep their initial token in memory; <code>agy-run</code> always kills and resumes the conversation rather than hot-swapping tokens.</li>
+        <li><code>agy-run</code> only triggers a quota switch on plain-text <code>error: Individual quota reached …</code> or <code>AGY_ERROR: … RESOURCE_EXHAUSTED (code 429)</code> lines. When a conversation that previously hit 429 is resumed, <code>agy</code> still echoes the old quota error inside the final <code>{"event":"result"}</code> JSON (<code>status: "ERROR"</code>, <code>error: "Individual quota reached …"</code>) even when the resumed turn completed normally; <code>agy-run</code> ignores JSON lines so it does not switch accounts falsely, and returns exit <code>0</code> when <code>.result.response</code> is non-empty (or exit <code>1</code> if <code>response</code> is empty).</li>
+        <li><code>503 No capacity</code> errors are not switched automatically by <code>agy-run</code>; follow <code>skills/agy/references/503-fallback.md</code> (<code>gemini-3.8-flash-medium</code>, then <code>gemini-3.8-flash-low</code>).</li>
+        <li>Parallel <code>agy-run</code> processes share one pool best-effort: parallel <code>agy-run</code> processes still share one live token file, so if process B switches the active token between process A's <code>agyr use X</code> and <code>agy</code> reading the token file, a later cooldown in process A may be recorded against the wrong account name until the next <code>agyr list</code> reconciles the quota table.</li>
+        <li>On Windows, the <code>wincred</code> backend is tested against <code>test/fake-cred</code>; because each Credential Manager read/write spawns PowerShell (~1 s), <code>agyr list</code> measures accounts sequentially rather than in parallel, and you should not sign in manually while <code>agyr list</code> or <code>agyr use</code> is running.</li>
+      </ul>
+      <!-- src: reference.md "Known limitations" -->
+
+      <h2>Where agyr Limitations Matter in Practice</h2>
+      <p>
+        These technical limitations influence daily development workflows, automated scripts, and multi-process workloads:
+      </p>
+      <p>
+        Because running <code>agy</code> processes keep tokens in memory, credentials cannot update inside an open session. Developers must exit <code>agy</code> before running <code>agyr rotate</code> and continuing with <code>agyr -c</code>. In automation, <code>agy-run</code> terminates the process upon 429 exhaustion and resumes with <code>--conversation &lt;id&gt;</code>.
+      </p>
+      <p>
+        Because a resumed conversation can still echo the earlier 429 in the final JSON event, <code>status: "ERROR"</code> alone does not mean the resumed turn failed. Resumed turns that finish normally can still contain the prior quota error in the result event; <code>agy-run</code> ignores JSON lines during switching and exits with code 0 when <code>.result.response</code> is non-empty.
+      </p>
+      <p>
+        <code>agy-run</code> does not switch accounts automatically on <code>503 No capacity</code> errors; the reference points to <code>skills/agy/references/503-fallback.md</code>, which uses the <code>gemini-3.8-flash-medium</code> model first and then <code>gemini-3.8-flash-low</code>.
+      </p>
+      <p>
+        When running parallel <code>agy-run</code> tasks, processes share one live token file. A switch by another process can cause a subsequent cooldown to be recorded against the wrong account until the next <code>agyr list</code> reconciles state.
+      </p>
+      <p>
+        On Windows, Credential Manager access overhead requires <code>agyr list</code> to measure accounts sequentially rather than in parallel (~10–20 seconds on Linux). Do not sign in manually while <code>agyr list</code> or <code>agyr use</code> is running.
+      </p>
+      <!-- src: reference.md "Known limitations" and "Parallel runs and slot safety" -->
+
+      <h2>Known Limitations of agy-task</h2>
+      <p>
+        When AI orchestrators delegate coding tasks through <code>agy-task</code>, tasks execute inside dedicated Git worktrees. The official technical reference identifies two specific limitations:
+      </p>
+      <ul>
+        <li>The worktree starts from <code>--base</code> and does not inherit uncommitted changes from the main checkout.</li>
+        <li>Scope and forbidden-file checks only see files reported by <code>git status</code> / <code>git diff</code> (gitignored files are invisible to git).</li>
+      </ul>
+      <p>
+        In practice, worktrees branch from <code>--base</code> (default <code>HEAD</code>), so uncommitted changes in the main checkout are not present in the task. Work must be committed or handled before running <code>agy-task</code>. Furthermore, because Git ignores paths in <code>.gitignore</code>, modifications to gitignored files are invisible to scope checks.
+      </p>
+      <!-- src: reference.md "Known limitations of agy-task" -->
+
+      <h2>Related Guides</h2>
+      <p>Additional resources for configuring Antigravity CLI account rotation and agent workflows:</p>
+      <ul>
+        <li><a href="/agyr-on-windows/">How to use agyr on Windows: Git Bash and Credential Manager</a></li>
+        <li><a href="/use-multiple-google-accounts-with-antigravity-cli/">How to use multiple Google accounts with Antigravity CLI</a></li>
+        <li><a href="/agy-task-with-claude-code/">Delegate coding tasks to agy-task from Claude Code</a></li>
+        <li><a href="https://github.com/luongtrz/agyr">agyr GitHub repository</a></li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>Last updated 2026-11-09</p>
+    </footer>
+  </div>
+</body>
+</html>
