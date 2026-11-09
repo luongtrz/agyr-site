@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use Multiple Google Accounts with Antigravity CLI</title>
+  <meta name="description" content="Step-by-step guide to configure multiple Google accounts on Antigravity CLI using agyr. Save account slots, switch credentials, and automate 429 failover.">
+  <link rel="canonical" href="https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:site_name" content="agyr">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/">
+  <meta property="og:title" content="How to Use Multiple Google Accounts with Antigravity CLI">
+  <meta property="og:description" content="Step-by-step guide to configure multiple Google accounts on Antigravity CLI using agyr. Save account slots, switch credentials, and automate 429 failover.">
+  <meta property="og:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@luongtrz">
+  <meta name="twitter:creator" content="@luongtrz">
+  <meta name="twitter:title" content="How to Use Multiple Google Accounts with Antigravity CLI">
+  <meta name="twitter:description" content="Step-by-step guide to configure multiple Google accounts on Antigravity CLI using agyr. Save account slots, switch credentials, and automate 429 failover.">
+  <meta name="twitter:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/#article",
+        "headline": "How to Use Multiple Google Accounts with Antigravity CLI",
+        "description": "Step-by-step guide to configure multiple Google accounts on Antigravity CLI using agyr. Save account slots, switch credentials, and automate 429 failover.",
+        "author": {
+          "@type": "Person",
+          "name": "Trần Lượng",
+          "url": "https://github.com/luongtrz"
+        },
+        "datePublished": "2026-11-09",
+        "dateModified": "2026-11-09",
+        "mainEntityOfPage": "https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://agyr.luongtrz.id.vn/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "How to Use Multiple Google Accounts with Antigravity CLI",
+            "item": "https://agyr.luongtrz.id.vn/use-multiple-google-accounts-with-antigravity-cli/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      background-color: #0b0d10;
+      color: #d7dae0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0d10;
+      color: #d7dae0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+      width: 100%;
+      min-width: 0;
+    }
+    header {
+      margin-bottom: 2rem;
+    }
+    header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin: 1.5rem 0 1rem;
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      word-break: break-word;
+    }
+    h2 {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      margin: 2.25rem 0 0.75rem;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+    p {
+      margin: 0 0 1rem;
+      color: #d7dae0;
+    }
+    ul {
+      margin: 0 0 1.25rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    a {
+      color: #3fb950;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+    a:hover {
+      color: #56d364;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+    }
+    p code, li code {
+      background-color: #161a22;
+      border: 1px solid #232831;
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      color: #e6edf3;
+      word-break: break-word;
+    }
+    pre {
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+      margin: 0.75rem 0 1.25rem;
+      max-width: 100%;
+    }
+    pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #e6edf3;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      display: block;
+      white-space: pre;
+    }
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #232831;
+      color: #9aa3ad;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="https://agyr.luongtrz.id.vn/">← Back to agyr home</a>
+    </header>
+
+    <main>
+      <h1>How to Use Multiple Google Accounts with Antigravity CLI</h1>
+
+      <p>
+        Developers running intensive coding sessions on Antigravity CLI often encounter rate limits. A single Google account provides rolling five-hour and weekly quotas that can exhaust when processing large codebases or executing sub-agent loops. Rather than stopping work or routing traffic through reverse proxy daemons, you can configure multiple Google accounts on your local workstation. The open-source agyr CLI utility provides local credential slot management and automated failover across Google accounts. It runs the official agy binary directly on your machine with no proxy in the request path. This setup guide explains how to install agyr, save account profiles, inspect live quotas, switch active credentials on demand, and automate 429 quota rotation without losing session context.
+      </p>
+
+      <h2>1. Install agyr on Linux or Windows</h2>
+      <p>
+        The agyr utility runs as a lightweight shell wrapper with zero continuous background resource consumption. It contains no persistent background daemons and consumes 0 MB of RAM while idle. It interfaces directly with Google's official <code>agy</code> binary installed on your workstation, maintaining authentic client TLS fingerprints. To install agyr, run the official installation command:
+      </p>
+      <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash</code></pre>
+      <p>
+        The installer sets up the <code>agyr</code>, <code>agy-run</code>, and <code>agy-task</code> commands for your user, with a Linux backend and a Windows backend (Git Bash plus <code>.cmd</code> wrappers).
+      </p>
+
+      <h2>2. Register Account Slots with agyr save and agyr forget</h2>
+      <p>
+        To register your primary Google account, run <code>agyr</code> without arguments to launch Google's official browser OAuth login:
+      </p>
+      <pre><code># Opens browser for account 1
+agyr
+
+# Save credentials into slot 'acc1'
+agyr save acc1</code></pre>
+      <p>
+        After completing sign-in in your browser, run <code>agyr save acc1</code> to copy active session tokens into slot <code>acc1</code> under <code>~/.gemini/antigravity-cli/accounts/</code>. The saved slot ensures your primary login remains accessible whenever you need to rotate back to it.
+      </p>
+      <p>
+        The agy tool keeps one active login at a time, and agyr stores additional logins as named slots. To add a second account, clear the active login without deleting saved profiles using <code>agyr forget</code>:
+      </p>
+      <pre><code># Safely clears active login (acc1 is safe)
+agyr forget
+
+# Sign in to account 2 in browser
+agyr
+
+# Save credentials into slot 'acc2'
+agyr save acc2</code></pre>
+      <p>
+        To prevent accidental credential loss, <code>agyr forget</code> refuses to drop unsaved tokens unless you pass the <code>-f</code> force flag (<code>agyr forget -f</code>). After clearing the session, run <code>agyr</code> to open a fresh Google sign-in window. Authenticate with your second account and run <code>agyr save acc2</code>. Repeat this process for any additional accounts.
+      </p>
+
+      <h2>3. Inspect Live Quotas Across Saved Accounts</h2>
+      <p>
+        Before launching intensive tasks, check available capacity across all configured profiles. The <code>agyr list</code> command queries Google servers in parallel to display remaining quotas:
+      </p>
+      <pre><code># Real-time multi-account dashboard
+agyr list
+
+# Fast cached quota inspection without calling agy binary
+agyr list -c
+
+# Include Claude and secondary model quotas
+agyr list --claude</code></pre>
+      <p>
+        The terminal output presents rolling five-hour and weekly percentages with color-coded health indicators: green indicates healthy capacity above 40%, yellow marks moderate levels between 11% and 40%, and red highlights exhausted quotas at or below 10%. To check status without spawning network probes, <code>agyr list -c</code> reads cached usage values from local disk. When using extended models, <code>agyr list --claude</code> adds columns for Claude five-hour and weekly limits alongside Gemini and Argon quotas.
+      </p>
+
+      <h2>4. Switch Accounts and Automate 429 Failover</h2>
+      <p>
+        When working in an interactive terminal, switch your active account at any time using <code>agyr use</code>:
+      </p>
+      <pre><code># Switch active account
+agyr use acc1</code></pre>
+      <p>
+        The command swaps local session credentials atomically with automated backup safeguards to prevent file corruption.
+      </p>
+      <p>
+        For headless autonomous tasks or orchestrator runs, use <code>agy-run</code> to handle HTTP 429 quota limits automatically:
+      </p>
+      <pre><code># Automated execution with 429 failover
+agy-run --add-dir . \
+  --prompt "Refactor database queries and add indexes"</code></pre>
+      <p>
+        When an active account hits quota exhaustion, <code>agy-run</code> terminates the process, places the slot on cooldown, and selects the next account using bottleneck heuristics based on <code>min(Gemini 5h, Week)</code>. It resumes the task using <code>agy --conversation &lt;existing-conversation-id&gt;</code>. Because Antigravity CLI preserves session state on disk, the replacement account continues execution without losing context. If all accounts reach exhaustion simultaneously, <code>agyr</code> and <code>agy-run</code> exit with code 5 (or code 3 during interactive rotation) and display the earliest reset timestamp in your local timezone.
+      </p>
+
+      <h2>5. Token Storage Security and Platform Backends</h2>
+      <p>
+        Credential management operates under strict local security boundaries:
+      </p>
+      <ul>
+        <li>
+          <strong>Credential Storage and Privacy:</strong> Saved OAuth tokens reside in <code>~/.gemini/antigravity-cli/accounts/</code> with <code>chmod 600</code> file permissions on Unix systems. On Windows, credentials integrate directly with Windows Credential Manager under the <code>gemini:antigravity</code> target. No tokens are transmitted to external servers or proxy daemons.
+        </li>
+        <li>
+          <strong>Linux Backend (file):</strong> Bypasses GNOME Keyring fallback locks by setting <code>DBUS_SESSION_BUS_ADDRESS=unix:path=/nonexistent</code> so <code>agy</code> reads swapped credentials reliably. Parallel quota checks run in temporary directories using <code>setsid</code>, and sub-process groups terminate cleanly without orphaned processes.
+        </li>
+        <li>
+          <strong>Windows Backend (wincred):</strong> Manages credentials in Windows Credential Manager via native PowerShell API wrappers. The backend provides native <code>.cmd</code> scripts for Command Prompt and PowerShell, disables MSYS path rewrites via <code>MSYS2_ARG_CONV_EXCL</code>, and terminates process trees cleanly using <code>taskkill //T //F</code>.
+        </li>
+      </ul>
+
+      <h2>Related Guides and Resources</h2>
+      <ul>
+        <li>
+          <a href="/fix-antigravity-cli-429-quota/">How to fix quota exhausted (HTTP 429) errors in Antigravity CLI</a>
+        </li>
+        <li>
+          <a href="/agyr-vs-proxy-routers/">agyr vs proxy routers: two ways to rotate Antigravity CLI accounts</a>
+        </li>
+        <li>
+          <a href="https://github.com/luongtrz/rotate-agy">Official agyr GitHub Repository</a>
+        </li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>Last updated 2026-11-09</p>
+    </footer>
+  </div>
+</body>
+</html>
