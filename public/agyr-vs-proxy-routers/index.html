@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>agyr vs Proxy Routers: Antigravity CLI Account Rotation</title>
+  <meta name="description" content="Compare agyr native CLI rotation with proxy routers like 9router for Antigravity CLI. Compare execution architecture, privacy, failover, and trade-offs.">
+  <link rel="canonical" href="https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/">
+  <meta name="author" content="Trần Lượng">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="agyr">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="agyr vs Proxy Routers: Antigravity CLI Account Rotation">
+  <meta property="og:description" content="Compare agyr native CLI rotation with proxy routers like 9router for Antigravity CLI. Compare execution architecture, privacy, failover, and trade-offs.">
+  <meta property="og:url" content="https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/">
+  <meta property="og:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="agyr vs Proxy Routers: Antigravity CLI Account Rotation">
+  <meta name="twitter:description" content="Compare agyr native CLI rotation with proxy routers like 9router for Antigravity CLI. Compare execution architecture, privacy, failover, and trade-offs.">
+  <meta name="twitter:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://agyr.luongtrz.id.vn/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "agyr vs proxy routers (e.g. 9router): two ways to rotate Antigravity CLI accounts",
+            "item": "https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "headline": "agyr vs proxy routers (e.g. 9router): two ways to rotate Antigravity CLI accounts",
+        "description": "Compare agyr native CLI rotation with proxy routers like 9router for Antigravity CLI. Compare execution architecture, privacy, failover, and trade-offs.",
+        "author": {
+          "@type": "Person",
+          "name": "Trần Lượng",
+          "url": "https://github.com/luongtrz"
+        },
+        "datePublished": "2026-11-09",
+        "dateModified": "2026-11-09",
+        "mainEntityOfPage": "https://agyr.luongtrz.id.vn/agyr-vs-proxy-routers/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      background-color: #0b0d10;
+      color: #d7dae0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      background-color: #0b0d10;
+      color: #d7dae0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 44rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2.5rem;
+    }
+    nav a {
+      color: #3fb950;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    h2 {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      margin-top: 2.25rem;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 1.15rem;
+      color: #d7dae0;
+    }
+    .muted {
+      color: #9aa3ad;
+    }
+    a {
+      color: #3fb950;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88em;
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 4px;
+      padding: 0.15em 0.35em;
+      word-break: break-word;
+    }
+    pre {
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      max-width: 100%;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      word-break: normal;
+      white-space: pre;
+    }
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0;
+      border: 1px solid #232831;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    th, td {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid #232831;
+      vertical-align: top;
+    }
+    th {
+      background-color: #11141a;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    td strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+    }
+    td span.subtext {
+      display: block;
+      color: #9aa3ad;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      margin-top: 0.15rem;
+    }
+    .table-note {
+      font-size: 0.85rem;
+      color: #9aa3ad;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #232831;
+      font-size: 0.875rem;
+      color: #9aa3ad;
+    }
+    footer p {
+      margin: 0;
+      color: #9aa3ad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="https://agyr.luongtrz.id.vn/">← agyr Home</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>agyr vs proxy routers (e.g. 9router): two ways to rotate Antigravity CLI accounts</h1>
+      <p>
+        When using Google Antigravity CLI (<code>agy</code>), long coding sessions often exhaust rolling 5-hour or weekly quota limits. Developers addressing HTTP 429 quota exhaustion generally choose between two patterns: local CLI token swappers like <code>agyr</code>, and proxy routers such as 9router. Both designs aim to maintain continuous AI coding assistance, but operate at different architectural layers. This comparison reviews how both approaches handle execution, credential storage, protocol updates, and session recovery.
+      </p>
+
+      <h2>Architectural Overview: CLI Swapping vs Proxy Routing</h2>
+      <p>
+        A CLI swapper like <code>agyr</code> works directly at the process invocation layer. It is a lightweight Bash utility that manages OAuth tokens on the local filesystem. When running <code>agyr</code> or automated workflows with <code>agy-run</code>, the utility swaps active credentials and executes the official <code>agy</code> binary directly on the local system. Requests travel straight between Google and the CLI binary without a proxy in the path.
+      </p>
+      <p>
+        In contrast, proxy router systems operate as background network daemons. Instead of delegating directly to the official CLI binary on the host machine, client tools configure an HTTP or SOCKS proxy endpoint. The proxy daemon intercepts outbound network requests, injects credentials from an account pool, and forwards calls to Google. This introduces an extra intermediary layer between the client environment and remote services.
+      </p>
+
+      <h2>Side-by-Side Comparison</h2>
+      <p>
+        The following table outlines the architectural specifications and operational differences:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Evaluation Criteria</th>
+              <th scope="col">agyr (Native CLI Swapper)</th>
+              <th scope="col">Proxy Routers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <strong>Execution Architecture</strong>
+                <span class="subtext">How requests are transmitted to Google</span>
+              </th>
+              <td>
+                <p>Runs the official <code>agy</code> binary directly on the local machine; no proxy in the request path.</p>
+              </td>
+              <td>
+                <p>A proxy daemon sits between the client and Google, so requests pass through an extra intermediary.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>Request Signatures</strong>
+                <span class="subtext">Client and connection characteristics</span>
+              </th>
+              <td>
+                <p>Outbound requests come from the official Google CLI binary with standard client signatures.</p>
+              </td>
+              <td>
+                <p>Outbound requests can use proxy-generated signatures or shared IP addresses depending on deployment.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>Credential Storage</strong>
+                <span class="subtext">Token location and permissions</span>
+              </th>
+              <td>
+                <p>OAuth tokens remain in <code>~/.gemini/antigravity-cli/accounts/</code> under <code>chmod 600</code> or in OS Credential Manager.</p>
+              </td>
+              <td>
+                <p>Authentication tokens are typically managed by the proxy daemon process to route requests.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>CLI Updates</strong>
+                <span class="subtext">Upstream Google compatibility</span>
+              </th>
+              <td>
+                <p>Directly wraps the installed <code>agy</code> binary; updates take effect when you update <code>agy</code>.</p>
+              </td>
+              <td>
+                <p>Proxy parsers often require updates if upstream streaming protocols or API signatures change.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>429 Failover &amp; Session Resume</strong>
+                <span class="subtext">Context retention during task execution</span>
+              </th>
+              <td>
+                <p>Hands over active task context by launching the next ready account with <code>--conversation &lt;id&gt;</code>.</p>
+              </td>
+              <td>
+                <p>Mid-stream failover can drop connections or require replaying prompts from scratch.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>System Resource Overhead</strong>
+                <span class="subtext">Background memory and process footprint</span>
+              </th>
+              <td>
+                <p>Pure lightweight Bash script with no background process running when idle.</p>
+              </td>
+              <td>
+                <p>Runs as a persistent background daemon or container service listening on local network ports.</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>Operating System Support</strong>
+                <span class="subtext">Platform integration</span>
+              </th>
+              <td>
+                <p>Supports Linux (D-Bus keyring isolation) and Windows (Credential Manager and <code>.cmd</code> wrappers).</p>
+              </td>
+              <td>
+                <p>Platform support depends on configuring network ports, local loopbacks, or container environments.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">The right-hand column describes proxy-based routing in general, not any specific project; check each project's own documentation.</p>
+
+      <h2>Execution Mechanics and Upstream Compatibility</h2>
+      <p>
+        Direct CLI execution preserves authentic client TLS handshakes and HTTP/2 network characteristics. Tokens reside locally in <code>~/.gemini/antigravity-cli/accounts/</code> under <code>chmod 600</code> on Linux or in Windows Credential Manager under <code>gemini:antigravity</code>. Because <code>agyr</code> invokes the official binary directly, authentication uses standard operating system file permissions and keyring storage without routing traffic through a local daemon.
+      </p>
+      <p>
+        Upstream updates also follow standard CLI behavior. Because <code>agyr</code> wraps the installed <code>agy</code> binary directly, upstream updates released by Google become active as soon as you update <code>agy</code> on your system. In contrast, proxy-based architectures that translate or parse streaming protocols may require software updates whenever upstream protocol structures or API signatures change.
+      </p>
+
+      <h2>429 Failover and Session Continuation</h2>
+      <p>
+        Continuous workflows require reliable failover when encountering HTTP 429 quota limits. The <code>agy-run</code> utility monitors execution in real time. When receiving a 429 status, it stops the process, applies a cooldown timer, rotates to the next ready account, and resumes with <code>--conversation &lt;id&gt;</code>.
+      </p>
+      <p>
+        Because conversation context is stored locally by the Antigravity CLI, task execution resumes without re-reading files or repeating earlier prompts. Proxy-based setups can sometimes drop connections mid-stream or require replaying prompts depending on their connection handling.
+      </p>
+
+      <h2>Trade-offs Between CLI Swappers and Proxy Routers</h2>
+      <p>
+        Choosing between a native CLI swapper and a proxy router depends on workflow scope and tool variety:
+      </p>
+      <p>
+        A proxy router architecture offers multi-tool flexibility. By exposing a central HTTP or SOCKS endpoint, a single proxy daemon can route traffic for multiple distinct editors, scripts, or custom API tools. If an environment requires multiplexing across diverse developer tools through one shared network port, a proxy router provides that centralized gateway.
+      </p>
+      <p>
+        Conversely, <code>agyr</code> is dedicated specifically to wrapping the official Antigravity CLI binary. It requires no background daemon, consumes zero memory when idle, and avoids network translation layers. For developers focused on the official <code>agy</code> tool, installation requires only standard commands:
+      </p>
+      <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash
+agyr list
+agy-run --add-dir . --prompt "Refactor database queries and add indexes"</code></pre>
+
+      <h2>Related Guides</h2>
+      <p>Additional resources for configuring Antigravity CLI rotation:</p>
+      <ul>
+        <li><a href="/fix-antigravity-cli-429-quota/">How to fix quota exhausted (HTTP 429) errors in Antigravity CLI</a></li>
+        <li><a href="/use-multiple-google-accounts-with-antigravity-cli/">How to use multiple Google accounts with Antigravity CLI</a></li>
+        <li><a href="https://github.com/luongtrz/rotate-agy">agyr GitHub Repository</a></li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>Last updated 2026-11-09</p>
+    </footer>
+  </div>
+</body>
+</html>
