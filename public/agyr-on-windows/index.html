@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use agyr on Windows: Git Bash and Credential Manager</title>
+  <meta name="description" content="Learn how to use agyr on Windows with Git Bash, PowerShell, and Credential Manager. Rotate multiple Antigravity CLI accounts with automated failover.">
+  <link rel="canonical" href="https://agyr.luongtrz.id.vn/agyr-on-windows/">
+  <meta name="author" content="Trần Lượng">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="agyr">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Use agyr on Windows: Git Bash and Credential Manager">
+  <meta property="og:description" content="Learn how to use agyr on Windows with Git Bash, PowerShell, and Credential Manager. Rotate multiple Antigravity CLI accounts with automated failover.">
+  <meta property="og:url" content="https://agyr.luongtrz.id.vn/agyr-on-windows/">
+  <meta property="og:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Use agyr on Windows: Git Bash and Credential Manager">
+  <meta name="twitter:description" content="Learn how to use agyr on Windows with Git Bash, PowerShell, and Credential Manager. Rotate multiple Antigravity CLI accounts with automated failover.">
+  <meta name="twitter:image" content="https://agyr.luongtrz.id.vn/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://agyr.luongtrz.id.vn/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "How to use agyr on Windows: Git Bash and Credential Manager",
+            "item": "https://agyr.luongtrz.id.vn/agyr-on-windows/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "headline": "How to use agyr on Windows: Git Bash and Credential Manager",
+        "description": "Learn how to use agyr on Windows with Git Bash, PowerShell, and Credential Manager. Rotate multiple Antigravity CLI accounts with automated failover.",
+        "author": {
+          "@type": "Person",
+          "name": "Trần Lượng",
+          "url": "https://github.com/luongtrz"
+        },
+        "datePublished": "2026-11-09",
+        "dateModified": "2026-11-09",
+        "mainEntityOfPage": "https://agyr.luongtrz.id.vn/agyr-on-windows/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      background-color: #0b0d10;
+      color: #d7dae0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      background-color: #0b0d10;
+      color: #d7dae0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 44rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2.5rem;
+    }
+    nav a {
+      color: #3fb950;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    h2 {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      margin-top: 2.25rem;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+      overflow-wrap: break-word;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 1.15rem;
+      color: #d7dae0;
+    }
+    a {
+      color: #3fb950;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88em;
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 4px;
+      padding: 0.15em 0.35em;
+      word-break: break-word;
+    }
+    pre {
+      background-color: #11141a;
+      border: 1px solid #232831;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      max-width: 100%;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      word-break: normal;
+      white-space: pre;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #232831;
+      font-size: 0.875rem;
+      color: #9aa3ad;
+    }
+    footer p {
+      margin: 0;
+      color: #9aa3ad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="https://agyr.luongtrz.id.vn/">← agyr Home</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>How to use agyr on Windows: Git Bash and Credential Manager</h1>
+      <p>
+        Running <code>agyr</code> on Windows enables managing multiple Google accounts for Antigravity CLI (<code>agy</code>) and automating rotation during HTTP 429 quota exhaustion. While Linux uses filesystem token files and D-Bus keyring isolation, Windows uses Windows Credential Manager. This guide covers installation, credential storage in the <code>wincred</code> backend, shell wrappers, MSYS path conversion, process termination, locking, and limitations.
+      </p>
+
+      <h2>Installing agyr on Windows</h2>
+      <p>
+        Windows is supported as a first-class platform alongside Linux. Installation requires <code>bash</code>, <code>git</code>, and <code>jq</code>. In Git Bash (MSYS), prerequisites include <code>jq</code> (e.g. via <code>winget install jqlang.jq</code>), Windows PowerShell (<code>powershell.exe</code> on <code>PATH</code>), <code>cygpath</code>, and <code>taskkill</code> (<code>taskkill</code> is included with Git for Windows).
+      </p>
+      <p>
+        Install <code>agyr</code> using the unified auto-detect installer:
+      </p>
+      <pre><code>curl -fsSL https://agyr.luongtrz.id.vn/install.sh | bash</code></pre>
+      <p>
+        Alternatively, clone the repository and invoke the platform installer directly:
+      </p>
+      <pre><code>git clone https://github.com/luongtrz/agyr.git ~/tools/agy-acct
+bash ~/tools/agy-acct/platforms/windows/install.sh</code></pre>
+      <p>
+        The installer creates Git Bash scripts and Windows <code>.cmd</code> wrappers in <code>~/.local/bin</code>. Install scripts only create wrappers; they never log in or inspect tokens. After installation, <code>agyr help</code> works and <code>bash test/run.sh</code> is expected to pass without requiring a login.
+      </p>
+      <!-- src: reference.md "Installation", "Repository layout" -->
+
+      <h2>How the wincred Backend Stores and Swaps Credentials</h2>
+      <p>
+        The <code>agyr</code> tool selects the <code>wincred</code> backend on Windows automatically (<code>AGYR_BACKEND=file|wincred</code>). On Windows, <code>agy</code> stores its active login in a single Windows Credential Manager generic entry with target <code>gemini:antigravity</code>, containing JSON identical to the Linux token file. Override the target using <code>AGY_CRED_TARGET</code>.
+      </p>
+      <p>
+        Because Credential Manager is a global store that cannot be redirected per-process, <code>agyr use &lt;name&gt;</code> backs up the active login to <code>accounts/.last-token.bak</code>, then overwrites the entry using <code>platforms/windows/cred.sh</code> and <code>cred.ps1</code>. Bare <code>agy</code>, <code>agyr</code>, and <code>.cmd</code> wrappers all interact with swapped credentials without D-Bus bypasses.
+      </p>
+      <p>
+        Helper scripts in <code>platforms/windows/</code> manage credential operations: <code>cred.sh</code> and <code>cred.ps1</code> read, write, and delete entries without printing secrets, while <code>inspect-cred.ps1</code> outputs diagnostic metadata. Running <code>agyr forget</code> deletes the <code>gemini:antigravity</code> entry (refusing with exit code 1 if unsaved, unless forced with <code>-f</code>).
+      </p>
+      <!-- src: reference.md "Windows backend (wincred)", "One-time setup" -->
+
+      <h2>Windows Command Wrappers and Supported Shells</h2>
+      <p>
+        The repository provides three entry-point commands in <code>bin/</code>: <code>agyr</code> (account management), <code>agy-run</code> (headless execution with 429 failover), and <code>agy-task</code> (worktree task runner).
+      </p>
+      <p>
+        The Windows installer generates Bash scripts and Windows <code>.cmd</code> batch wrappers (<code>agyr.cmd</code>, <code>agy-run.cmd</code>, <code>agy-task.cmd</code>) in <code>$BIN_DIR</code>. Supported shells include:
+      </p>
+      <ul>
+        <li><strong>Git Bash:</strong> Executes Bash entry-point scripts directly.</li>
+        <li><strong>Windows PowerShell:</strong> Invokes the <code>.cmd</code> wrappers (<code>agyr</code>, <code>agy-run</code>, <code>agy-task</code>) directly.</li>
+        <li><strong>Command Prompt (CMD):</strong> Executes <code>.cmd</code> wrappers natively from command consoles.</li>
+      </ul>
+      <!-- src: reference.md "Windows backend (wincred)", "Repository layout" -->
+
+      <h2>MSYS Path-Conversion Guard and Process-Tree Termination</h2>
+      <p>
+        Git Bash (MSYS) automatically rewrites POSIX arguments starting with a slash into Windows paths (e.g. converting <code>/quota</code> into <code>C:/Program Files/Git/quota</code>). To preserve arguments, <code>platforms/windows/platform.sh</code> sets <code>MSYS2_ARG_CONV_EXCL=/quota</code> for <code>agyr</code> and <code>MSYS2_ARG_CONV_EXCL=&#39;*&#39;</code> for <code>agy-run</code>. Paths handed to <code>agy</code> are normalized via <code>cygpath -m</code>.
+      </p>
+      <p>
+        Git Bash lacks POSIX process groups and <code>setsid</code> detachment. When <code>agy-run</code> detects an HTTP 429 quota exhaustion error, it reaps the process tree using native Windows process management:
+      </p>
+      <pre><code>taskkill //T //F //PID &lt;winpid&gt;</code></pre>
+      <p>
+        This terminates the process tree cleanly, allowing <code>agy-run</code> to apply cooldowns, rotate accounts, and resume the conversation.
+      </p>
+      <!-- src: reference.md "Windows backend (wincred)", "Installation" -->
+
+      <h2>Cross-Platform Locking and Slot Safety</h2>
+      <p>
+        All credential swaps, slot writes, and updates to <code>accounts/state.json</code> are serialized by a lock file at <code>accounts/.swap.lock</code> using atomic exclusive file creation (<code>set -o noclobber</code>). This prevents concurrent operations from clobbering credentials.
+      </p>
+      <p>
+        Modifications use atomic file writes: token files, slots, backups, and <code>state.json</code> are written to temporary files and renamed into place. Operations take a single private snapshot of the active login for identity checks before write-back.
+      </p>
+      <p>
+        Slot names contain only ASCII letters, digits, hyphens, and underscores (e.g. <code>acc1</code>, <code>work</code>), disallowing spaces, dots, slashes, or <code>@</code>. On Windows, slot files in <code>~/.gemini/antigravity-cli/accounts/</code> are secured by NTFS user profile ACLs.
+      </p>
+      <!-- src: reference.md "Cross-platform locking & slot safety", "Parallel runs and slot safety" -->
+
+      <h2>Known Limitations and Quick-Start Commands</h2>
+      <p>
+        Operating <code>agyr</code> on Windows involves several operational limitations:
+      </p>
+      <ul>
+        <li><strong>Sequential Quota Measurement:</strong> Because Windows Credential Manager is a global store and PowerShell adds ~1 second overhead, <code>agyr list</code> measures accounts sequentially on Windows rather than in parallel. Each slot is swapped in, measured with <code>agy -p /quota</code>, and restored upon completion or error.</li>
+        <li><strong>Manual Sign-In Concurrency:</strong> Do not sign in manually in a browser while <code>agyr list</code> or <code>agyr use</code> is running.</li>
+        <li><strong>In-Memory Process Tokens:</strong> Running <code>agy</code> processes keep their initial token in memory; <code>agy-run</code> terminates the process and resumes with <code>--conversation &lt;id&gt;</code> instead of hot-swapping tokens.</li>
+        <li><strong>Parallel agy-run Contention:</strong> Concurrent <code>agy-run</code> processes share the live credential store best-effort. If process B switches credentials between process A&#39;s switch and token read, a cooldown in process A may be logged against the wrong account until <code>agyr list</code> reconciles <code>state.json</code>.</li>
+        <li><strong>Unswitched Errors:</strong> <code>503 No capacity</code> errors are not switched automatically by <code>agy-run</code>.</li>
+        <li><strong>Test Suite Differences:</strong> On Windows, POSIX mode checks (<code>600</code>/<code>700</code>) and <code>pgrep</code> checks are skipped in <code>bash test/run.sh</code>.</li>
+      </ul>
+      <p>
+        To set up multiple accounts and verify automated execution on Windows, run the standard quick-start commands:
+      </p>
+      <pre><code># Step 1: Sign in and save primary account
+agyr
+agyr save acc1
+
+# Step 2: Clear active session and register second account
+agyr forget
+agyr
+agyr save acc2
+
+# Step 3: Inspect real-time quota status across all slots
+agyr list
+
+# Step 4: Run automated tasks with 429 auto-failover
+agy-run --add-dir . --prompt "Write unit tests for the auth service"</code></pre>
+      <!-- src: reference.md "Known limitations", tool-readme.md "Getting Started (Adding Accounts)" -->
+
+      <h2>Related Guides</h2>
+      <p>Additional resources for configuring Antigravity CLI rotation and account management:</p>
+      <ul>
+        <li><a href="/use-multiple-google-accounts-with-antigravity-cli/">How to use multiple Google accounts with Antigravity CLI</a></li>
+        <li><a href="/agyr-environment-variables-and-limitations/">agyr environment variables and known limitations</a></li>
+        <li><a href="/fix-antigravity-cli-429-quota/">How to fix quota exhausted (HTTP 429) errors in Antigravity CLI</a></li>
+        <li><a href="https://github.com/luongtrz/agyr">agyr GitHub repository</a></li>
+      </ul>
+      <!-- src: tool-readme.md "Documentation", reference.md "docs/agent-setup.md" -->
+    </main>
+
+    <footer>
+      <p>Last updated 2026-11-09</p>
+    </footer>
+  </div>
+</body>
+</html>
