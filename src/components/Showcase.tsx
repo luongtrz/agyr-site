@@ -107,7 +107,14 @@ export default function Showcase() {
           <code className="whitespace-nowrap rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-slate-200 sm:text-sm">
             --conversation &lt;id&gt;
           </code>{' '}
-          so the replacement account continues immediately without reprocessing earlier tokens.
+          so the replacement account continues immediately without reprocessing earlier tokens.{' '}
+          <a
+            href="/fix-antigravity-cli-429-quota/"
+            className="text-emerald underline underline-offset-4 hover:opacity-80"
+          >
+            How to fix 429 quota errors
+          </a>
+          .
         </p>
       </div>
     </section>

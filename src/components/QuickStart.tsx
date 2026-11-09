@@ -89,7 +89,14 @@ export default function QuickStart() {
                 <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-sm text-ink">
                   agyr
                 </code>{' '}
-                manages stored credentials across sessions.
+                manages stored credentials across sessions.{' '}
+                <a
+                  href="/use-multiple-google-accounts-with-antigravity-cli/"
+                  className="text-emerald underline underline-offset-4 hover:opacity-80"
+                >
+                  Full multi-account guide
+                </a>
+                .
               </>
             }
           />

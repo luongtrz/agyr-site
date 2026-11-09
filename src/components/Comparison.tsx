@@ -14,7 +14,14 @@ export default function Comparison() {
             <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
               Why proxy architectures (like <InlineCode>9router</InlineCode> or MITM daemons) risk
               account flags, and how <InlineCode>agyr</InlineCode> solves rotation cleanly at the
-              process level.
+              process level.{' '}
+              <a
+                href="/agyr-vs-proxy-routers/"
+                className="text-emerald underline underline-offset-4 hover:opacity-80"
+              >
+                Read the detailed comparison
+              </a>
+              .
             </p>
           </div>
         </Reveal>
